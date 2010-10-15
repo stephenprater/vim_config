@@ -1,0 +1,1 @@
+Decho.vba: call delete('/Users/stephenp/.vim/plugin/Decho.vim')|call delete('/Users/stephenp/.vim/plugin/cecutil.vim')|call delete('/Users/stephenp/.vim/syntax/Decho.vim')|call delete('/Users/stephenp/.vim/doc/Decho.txt')

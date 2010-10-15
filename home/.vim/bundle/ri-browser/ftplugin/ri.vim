@@ -1,11 +1,11 @@
-" Vim filetype plugin
+" Vi filetype plugin
 " Language:	ri / Ruby Information
 " Description:	Interface for browsing ri/ruby documentation.
 " Maintainer:   Jonas Fonseca <fonseca@diku.dk>
 " Last Change:  Nov 26th 2002
 " CVS Tag:	$Id: ri.vim,v 1.7 2002/11/27 03:39:26 fonseca Exp $
 " License:	This file is placed in the public domain.
-" Credits:	Thanks to Bob Hiestand <bob@hiestandfamily.org> for making
+
 "		the cvscommand.vim plugin from which much of the code
 "		derives. <URL:http://www.vim.org/script.php?script_id=90>
 "
@@ -120,8 +120,8 @@ function! s:RiSetupBuffer(name)
       let edit_cmd = 'vert rightbelow split'
     endif
   end
-  breakadd here 
-  silent execute edit_cmd a:name
+
+  noautocmd silent execute edit_cmd a:name
 
   if v:errmsg != ""
     if &modified && !&hidden
@@ -129,7 +129,7 @@ function! s:RiSetupBuffer(name)
     else
       echoerr "Unable to open command buffer:" v:errmsg
     endif
-    "return -1
+    return -1
   endif
 
   " Define the environment and execute user-defined hooks.
@@ -151,15 +151,17 @@ endfunction
 " Sets up the Ri buffer and executes the Ri lookup 
 
 function! s:RiExecute(term)
-  let command    = '0r!ri ' . escape(a:term, '!') . '"'
+  let command    = '0r!ri --format=rdoc "' . escape(a:term, '!') . '"'
   let buffername = 'Ri browser [' . escape(a:term, ' |*\') . ']'
   if s:RiSetupBuffer(buffername) == -1
     return -1
   endif
   silent execute command
+  setlocal noma
+  wincmd p 
   1
-
 endfunction
+
 " Function: s:RiAddFoldMarkers() {{{1
 " Insert fold markers. Only possible on an unfolded buffer
 
