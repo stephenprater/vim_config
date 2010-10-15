@@ -1,43 +1,81 @@
-" Globally applicable settings should be applied here, as well as anything else
-" that needs to be loaded before the config files get executed.
+set guifont=Inconsolata:h14
+set background=dark
+syntax on
+colorscheme railscasts 
 
-" don't try to play nice with vi
+call pathogen#runtime_append_all_bundles()
+
+
 set nocompatible
+filetype on
+filetype plugin on
 
-" allow buffers to be hidden when they're not saved
+set number
+
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set smarttab
+
+set backspace=2
+set cmdheight=2
+set ruler
+set history=100
+set undolevels=100
+set autoindent
 set hidden
 
-" save the last 100 commands/search terms
-set history=100
+set incsearch
+set ignorecase 
+set smartcase
+set directory=~/.vim/swap,.
 
-" use ; for <Leader>
-let mapleader = ";"    
+" set mac meta
+set mmta 
 
-"" shortmess settings:
-" f - use "(3 of 5)" instead of "(file 3 of 5)"
-" i - use "[noeol]" instead of "[Incomplete last line]"
-" l - use "999L, 888C" instead of "999 lines, 888 characters"
-" m - use "[+]" instead of "[Modified]"
-" n - use "[New]" instead of "[New File]"
-" r - use "[RO]" instead of "[readonly]"
-" x - use "[dos]" instead of "[dos format]", "[unix]" instead of "[unix
-" format]", and "[mac]" instead of "[mac format]"
-" t - truncate file message at the start if it is too long to fit on the
-" command-line, "<" will appear in the left most column.
-" T - trunctate other messages in the middle if they are too long to fit on
-" the command line. "..." will appear in the middle.
-" I - don't give the intro message when starting Vim.
-set shortmess=filmnrxtTI
 
-" turn filetype settings off so that stuff gets loaded from pathogen
-filetype off
+"set up minibufexplorer
+let g:miniBufExplMapWindowNavVim = 1 
+let g:miniBufExplMapWindowNavArrows = 1 
+let g:miniBufExplMapCTabSwitchBufs = 1 
+let g:miniBufExplModSelTarget = 1 
+let g:miniBufExplorerMoreThanOne=0
 
-" use pathogen to load plugins/etc.
-"call pathogen#runtime_append_all_bundles()
 
-" turn on all filetype settings, syntax, etc.
-filetype plugin indent on
-syntax on
+let mapleader = ","
 
-" load everything else in its own config file
-runtime! config/**/*
+"invisibles
+map ,l :set list!<CR>
+set listchars=tab:▸\ ,eol:¬
+
+set list
+
+",v brings up my .vimrc
+",V reloads it -- making all changes active (have to save first)
+
+map ,v :sp ~/.vimrc<CR><C-W>_
+map <silent> ,V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+
+
+" for close windows
+nmap <C-W>! <Plug>Kwbd
+
+map ,tl :Tlist<CR>
+
+
+" open nerd tree, and jump to the editing window
+au VimEnter * set laststatus=2
+au VimEnter * NERDTree
+au VimEnter * wincmd p
+
+au FileType ruby source $HOME/.vim/bundle/ri-browser/ftplugin/ri.vim
+
+set lines=80 columns=258
+
+map <C-S-P> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+
+map ,mru :MRU<CR>
+
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
