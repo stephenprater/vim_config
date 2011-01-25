@@ -1,15 +1,7 @@
+set guifont=Inconsolata:h14
 set background=dark
 syntax on
-
-set t_Co=256
-colorscheme railscasts256
-
-" make sure vim uses something like white for the text color
-hi Normal cterm=None ctermfg=247
-hi StatusLine cterm=None ctermbg=255 ctermfg=0
-hi StatusLineNC cterm=None ctermbg=245 ctermfg=0
-hi VertSplit cterm=None ctermbg=245
-hi Title cterm=bold ctermfg=255
+colorscheme railscasts 
 
 call pathogen#runtime_append_all_bundles()
 
@@ -40,7 +32,7 @@ set smartcase
 set directory=~/.vim/swap,.
 
 " set mac meta
-" set mmta 
+set mmta 
 
 
 "set up minibufexplorer
@@ -55,10 +47,7 @@ let mapleader = ","
 
 "invisibles
 map ,l :set list!<CR>
-set listchars=tab:\|\ ,eol:¬
-hi SpecialKey cterm=None ctermfg=234 gui=None guifg=#000066
-hi NonText cterm=None ctermfg=234 gui=None guifg=#000066
-
+set listchars=tab:▸\ ,eol:¬
 
 set list
 
@@ -68,11 +57,6 @@ set list
 map ,v :sp ~/.vimrc<CR><C-W>_
 map <silent> ,V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
-function! s:SudoWrite()
-  w !sudo tee % > /dev/null
-endfunction
-
-command! NoReallyWrite call <SID>SudoWrite() 
 
 " for close windows
 nmap <C-W>! <Plug>Kwbd
@@ -87,7 +71,11 @@ au VimEnter * wincmd p
 
 au FileType ruby source $HOME/.vim/bundle/ri-browser/ftplugin/ri.vim
 
-map ,sp :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+set lines=80 columns=258
+
+map <C-S-P> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 
 map ,mru :MRU<CR>
+
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
