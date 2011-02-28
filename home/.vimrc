@@ -4,7 +4,6 @@ syntax on
 set term=linux
 set t_Co=256
 
-set fuopt+=maxhorz
 call pathogen#runtime_append_all_bundles()
 
 " have to load this one explicitly
@@ -104,6 +103,7 @@ command! NoReallyWrite call <SID>SudoWrite()
 nmap <C-W>! <Plug>Kwbd
 
 map ,tl :Tlist<CR>
+map ,yr :YRShow<CR>
 
 function! s:RunShellCommand(cmdline)
   botright lwindow 
