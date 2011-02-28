@@ -1,25 +1,39 @@
 set background=dark
 syntax on
 
-set term=linux
 set t_Co=256
 
 call pathogen#runtime_append_all_bundles()
 
-" have to load this one explicitly
-so $HOME/.vim/plugin/guicolorscheme.vim
+if has("gui_macvim")
+  colorscheme railscasts
+  set guifont=Inconsolata:h14
+  set noballooneval
+  set macmeta
+  set mmta
 
+  set guioptions-=T
+  macmenu &File.New\ Tab key=<D-T>
+  map <silent> <D-t> :CommandT<CR>
+  imap <silent> <D-t> <Esc>:CommandT<CR>
+else
+  " have to load this one explicitly
+  so $HOME/.vim/plugin/guicolorscheme.vim
+  GuiColorScheme railscasts
+  hi rubyInstanceVariable ctermfg=63
+  hi rubyPredefinedVariable ctermfg=73
+  hi link rubyClassVariable rubyInstanceVariable
+endif
 
+" colorscheme tweaks
 " make sure vim uses something like white for the text color
-hi Normal cterm=None ctermfg=247
-hi StatusLine cterm=None ctermbg=255 ctermfg=0
-hi StatusLineNC cterm=None ctermbg=245 ctermfg=0
-hi VertSplit cterm=None ctermbg=245
-hi Title cterm=bold ctermfg=255
-hi rubyInstanceVariable ctermfg=63
-hi rubyPredefinedVariable ctermfg=73
-
-hi link rubyClassVariable rubyInstanceVariable
+hi Normal cterm=None ctermfg=247 guifg=#CACACA
+hi StatusLine cterm=None ctermbg=255 ctermfg=0 guibg=#000000 guifg=#FFFFFF
+hi StatusLineNC cterm=None ctermbg=245 ctermfg=0 guibg=#000000 guifg=#898989
+hi VertSplit cterm=None ctermbg=245 guibg=#898989
+hi Title cterm=bold ctermfg=255 gui=bold
+hi Special cterm=None ctermfg=5 guifg=#B900F4
+hi Comment cterm=None guibg=#BC9458 guifg=#000000 
 
 noremap ]- <C-W>-
 noremap ]= <C-W>+
@@ -38,7 +52,6 @@ filetype on
 filetype plugin on
 
 set number
-set noballooneval
 set expandtab
 set tabstop=2
 set softtabstop=2
@@ -57,9 +70,6 @@ set incsearch
 set ignorecase 
 set smartcase
 set directory=~/.vim/swap,.
-
-" set mac meta
-" set mmta 
 
 let mapleader = ","
 
