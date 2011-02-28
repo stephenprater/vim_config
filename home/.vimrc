@@ -1,8 +1,15 @@
 set background=dark
 syntax on
 
+set term=linux
 set t_Co=256
-colorscheme railscasts256
+
+call pathogen#runtime_append_all_bundles()
+
+" have to load this one explicitly
+so $HOME/.vim/plugin/guicolorscheme.vim
+
+GuiColorScheme railscasts
 
 " make sure vim uses something like white for the text color
 hi Normal cterm=None ctermfg=247
@@ -10,10 +17,23 @@ hi StatusLine cterm=None ctermbg=255 ctermfg=0
 hi StatusLineNC cterm=None ctermbg=245 ctermfg=0
 hi VertSplit cterm=None ctermbg=245
 hi Title cterm=bold ctermfg=255
+hi rubyInstanceVariable ctermfg=63
+hi rubyPredefinedVariable ctermfg=73
 
-call pathogen#runtime_append_all_bundles()
+hi link rubyClassVariable rubyInstanceVariable
 
+noremap ]- <C-W>-
+noremap ]= <C-W>+
+noremap ], <C-W><
+noremap ]. <C-W>>
+noremap ]j <C-W>j
+noremap ]k <C-W>k
+noremap ]h <C-W>h
+noremap ]l <C-W>l
+imap <down> <C-E>
+imap <up> <C-Y>
 
+noremap <silent> ,yr :YRShow<CR>
 set nocompatible
 filetype on
 filetype plugin on
@@ -50,6 +70,7 @@ let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1 
 let g:miniBufExplorerMoreThanOne=0
 
+let g:yankring_min_element_length=2
 
 let mapleader = ","
 
@@ -58,7 +79,6 @@ map ,l :set list!<CR>
 set listchars=tab:\|\ ,eol:¬
 hi SpecialKey cterm=None ctermfg=234 gui=None guifg=#000066
 hi NonText cterm=None ctermfg=234 gui=None guifg=#000066
-
 
 set list
 
@@ -74,11 +94,11 @@ endfunction
 
 command! NoReallyWrite call <SID>SudoWrite() 
 
-" for close windows
+  " for close windows
 nmap <C-W>! <Plug>Kwbd
 
 map ,tl :Tlist<CR>
-
+map ,yr :YRShow<CR>
 
 " open nerd tree, and jump to the editing window
 au VimEnter * set laststatus=2
