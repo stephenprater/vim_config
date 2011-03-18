@@ -16,25 +16,25 @@ hi Normal             gui=NONE       guifg=White         guibg=#001020       gui
 
 hi StatusLine         gui=NONE       guifg=Black         guibg=DarkRed
 hi StatusLineNC       gui=NONE       guifg=Black         guibg=DarkGray
- hi VertSplit          gui=NONE       guifg=Black         guibg=DarkGray
+hi VertSplit          gui=NONE       guifg=Black         guibg=DarkGray
 
 hi Cursor             gui=NONE       guifg=White         guibg=PaleTurquoise3
- hi CursorIM           gui=NONE       guifg=White         guibg=PaleTurquoise3
+hi CursorIM           gui=NONE       guifg=White         guibg=PaleTurquoise3
 hi CursorLine                                            guibg=#003853
- hi CursorColumn                                          guibg=#003853
+hi CursorColumn                                          guibg=#003853
 
 hi ErrorMsg           gui=NONE       guifg=Yellow        guibg=NONE
- hi WarningMsg         gui=NONE       guifg=Yellow        guibg=NONE
- hi MoreMsg            gui=NONE       guifg=Yellow        guibg=NONE
- hi Question           gui=NONE       guifg=Yellow        guibg=NONE
+hi WarningMsg         gui=NONE       guifg=Yellow        guibg=NONE
+hi MoreMsg            gui=NONE       guifg=Yellow        guibg=NONE
+hi Question           gui=NONE       guifg=Yellow        guibg=NONE
 hi ModeMsg            gui=bold       guifg=White         guibg=DarkRed
 
 "hi Directory          gui=NONE       guifg=DarkGreen     guibg=NONE
-"hi Directory gui=bold guifg=#0475B9	"---lighter blue
-hi Directory gui=bold guifg=#035587	"---darker blue
+hi Directory gui=bold guifg=#0475B9	"---lighter blue
+"hi Directory gui=bold guifg=#035587	"---darker blue
 
 hi Search             gui=NONE       guifg=White         guibg=DarkRed
- hi IncSearch          gui=NONE       guifg=White         guibg=DarkRed
+hi IncSearch          gui=NONE       guifg=White         guibg=DarkRed
 
 hi NonText            gui=NONE       guifg=DarkRed       guibg=NONE
 hi SpecialKey         gui=NONE       guifg=#999999       guibg=NONE

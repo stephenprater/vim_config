@@ -6,43 +6,44 @@ set t_Co=256
 call pathogen#runtime_append_all_bundles()
 
 if has("gui_macvim")
-  colorscheme railscasts
+  colorscheme praterhaus 
   set guifont=Inconsolata:h14
   set noballooneval
   set macmeta
   set mmta
-
   set guioptions-=T
-  macmenu &File.New\ Tab key=<D-T>
-  map <silent> <D-t> :CommandT<CR>
-  imap <silent> <D-t> <Esc>:CommandT<CR>
 else
   " have to load this one explicitly
   so $HOME/.vim/plugin/guicolorscheme.vim
-  GuiColorScheme railscasts
+  GuiColorScheme praterhaus 
   hi rubyInstanceVariable ctermfg=63
   hi rubyPredefinedVariable ctermfg=73
   hi link rubyClassVariable rubyInstanceVariable
+  hi Comment cterm=None guibg=#BC9458 guifg=#000000 
 endif
 
 " colorscheme tweaks
 " make sure vim uses something like white for the text color
-hi Normal cterm=None ctermfg=247 guifg=#CACACA
-hi StatusLine cterm=None ctermbg=255 ctermfg=0 guibg=#000000 guifg=#FFFFFF
-hi StatusLineNC cterm=None ctermbg=245 ctermfg=0 guibg=#000000 guifg=#898989
-hi VertSplit cterm=None ctermbg=245 guibg=#898989
-hi Title cterm=bold ctermfg=255 gui=bold
-hi Special cterm=None ctermfg=5 guifg=#B900F4
-hi Comment cterm=None guibg=#BC9458 guifg=#000000 
+"hi Normal cterm=None ctermfg=247 guifg=#CACACA
+"hi StatusLine cterm=None ctermbg=255 ctermfg=0 guibg=#000000 guifg=#FFFFFF
+"hi StatusLineNC cterm=None ctermbg=245 ctermfg=0 guibg=#000000 guifg=#898989
+"hi VertSplit cterm=None ctermbg=245 guibg=#898989
 
 noremap ]- <C-W>-
 noremap ]= <C-W>+
-noremap ], <C-W><
-noremap ]. <C-W>>
+noremap ], <C-W>>
+noremap ]. <C-W><
 noremap ]j <C-W>j
 noremap ]k <C-W>k
 noremap ]h <C-W>h
 noremap ]l <C-W>l
+
+noremap ]_ :split<CR>
+noremap ]\| :vsplit<CR>
+
+noremap <D-]> :bn<CR>
+noremap <D-[> :bp<CR>
+
 imap <down> <C-E>
 imap <up> <C-Y>
 
@@ -87,8 +88,6 @@ let mapleader = ","
 "invisibles
 map ,l :set list!<CR>
 set listchars=tab:\|\ ,eol:¬
-hi SpecialKey cterm=None ctermfg=234 gui=None guifg=#000066
-hi NonText cterm=None ctermfg=234 gui=None guifg=#000066
 
 set list
 
@@ -114,6 +113,7 @@ nmap <C-W>! <Plug>Kwbd
 
 map ,tl :Tlist<CR>
 map ,yr :YRShow<CR>
+map ,t  :CommandT<CR>
 
 function! s:RunShellCommand(cmdline)
   botright lwindow 
@@ -139,9 +139,13 @@ map ,sc :silent SynCheck %<CR>
 
 
 " open nerd tree, and jump to the editing window
-au VimEnter * set laststatus=2
-au VimEnter * NERDTree
-au VimEnter * wincmd p
+if &diff
+  " don't start NERDTree
+else  
+  au VimEnter * set laststatus=2
+  au VimEnter * NERDTree
+  au VimEnter * wincmd p
+endif
 
 au FileType ruby source $HOME/.vim/bundle/ri-browser/ftplugin/ri.vim
 

@@ -10,7 +10,7 @@
 " This should also work on the GUI, so using it 100% of the time, assuming
 " you always have a non 8/16 color terminal should work fine
 
-if exists('g:loaded_guicolorscheme') || has('gui_running')
+if exists('g:loaded_guicolorscheme')
     finish
 endif
 let g:loaded_guicolorscheme = 1
