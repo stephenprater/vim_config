@@ -147,8 +147,6 @@ else
   au VimEnter * wincmd p
 endif
 
-au FileType ruby source $HOME/.vim/bundle/ri-browser/ftplugin/ri.vim
-
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
