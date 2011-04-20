@@ -1,4 +1,5 @@
 set background=dark
+let ruby_operators = 1
 syntax on
 
 set t_Co=256
@@ -13,7 +14,7 @@ if has("gui_macvim")
   set mmta
   set guioptions-=T
 else
-  " have to load this one explicitly
+  " have to load this one explicitly:b8
   so $HOME/.vim/plugin/guicolorscheme.vim
   GuiColorScheme praterhaus 
   hi rubyInstanceVariable ctermfg=63
@@ -21,6 +22,22 @@ else
   hi link rubyClassVariable rubyInstanceVariable
   hi Comment cterm=None guibg=#BC9458 guifg=#000000 
 endif
+
+function! RubySyntaxTweak()
+  hi rubyOperator guifg=#00B7FF
+  hi rubyBrackets guifg=#888888
+  hi link rubyExpression rubyBrackets
+  hi link rubyTernary rubyControl
+  hi link rubyHashAssignment rubyOperator
+  hi link rubyAssignment rubyOperator
+  syn match rubyHashAssignment "=>"
+  syn match rubyBrackets "[{}\[\]]"
+  syn match rubyTernary "\s[?:]\s"
+  syn match rubyAssignment "=\(>\)\@!"
+  syn region rubyExpression matchgroup=rubyExpression start="\V\s("ms=s+1 end="\V)" transparent
+endfunction
+
+au Filetype ruby call RubySyntaxTweak()
 
 " colorscheme tweaks
 " make sure vim uses something like white for the text color
