@@ -1,7 +1,11 @@
 set ttimeoutlen=100 timeoutlen=5000
 set nocompatible
 set background=dark
+<<<<<<< HEAD
 set ttymouse=xterm2
+=======
+let ruby_operators = 1
+>>>>>>> 983fcbff9642cc333ec56e71806a86fefc90b739
 syntax on
 
 set t_Co=256
@@ -17,12 +21,30 @@ if has("gui_macvim")
   set guioptions-=T
   set lines=80 columns=258
 else
-  " have to load this one explicitly
+  " have to load this one explicitly:b8
   so $HOME/.vim/plugin/guicolorscheme.vim
   GuiColorScheme praterhaus
-  highlight clear Comment
-  highlight Comment ctermbg=58 ctermfg=0
+  hi rubyInstanceVariable ctermfg=63
+  hi rubyPredefinedVariable ctermfg=73
+  hi link rubyClassVariable rubyInstanceVariable
+  hi Comment cterm=None guibg=#BC9458 guifg=#000000 
 endif
+
+function! RubySyntaxTweak()
+  hi rubyOperator guifg=#00B7FF
+  hi rubyBrackets guifg=#888888
+  hi link rubyExpression rubyBrackets
+  hi link rubyTernary rubyControl
+  hi link rubyHashAssignment rubyOperator
+  hi link rubyAssignment rubyOperator
+  syn match rubyHashAssignment "=>"
+  syn match rubyBrackets "[{}\[\]]"
+  syn match rubyTernary "\s[?:]\s"
+  syn match rubyAssignment "=\(>\)\@!"
+  syn region rubyExpression matchgroup=rubyExpression start="\V\s("ms=s+1 end="\V)" transparent
+endfunction
+
+au Filetype ruby call RubySyntaxTweak()
 
 " colorscheme tweaks
 " make sure vim uses something like white for the text color
@@ -157,8 +179,6 @@ else
   au VimEnter * NERDTree
   au VimEnter * wincmd p
 endif
-
-au FileType ruby source $HOME/.vim/bundle/ri-browser/ftplugin/ri.vim
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
