@@ -1,4 +1,7 @@
+set ttimeoutlen=100 timeoutlen=5000
+set nocompatible
 set background=dark
+set ttymouse=xterm2
 syntax on
 
 set t_Co=256
@@ -6,20 +9,19 @@ set t_Co=256
 call pathogen#runtime_append_all_bundles()
 
 if has("gui_macvim")
-  colorscheme praterhaus 
+  colorscheme praterhaus
   set guifont=Inconsolata:h14
   set noballooneval
   set macmeta
   set mmta
   set guioptions-=T
+  set lines=80 columns=258
 else
   " have to load this one explicitly
   so $HOME/.vim/plugin/guicolorscheme.vim
-  GuiColorScheme praterhaus 
-  hi rubyInstanceVariable ctermfg=63
-  hi rubyPredefinedVariable ctermfg=73
-  hi link rubyClassVariable rubyInstanceVariable
-  hi Comment cterm=None guibg=#BC9458 guifg=#000000 
+  GuiColorScheme praterhaus
+  highlight clear Comment
+  highlight Comment ctermbg=58 ctermfg=0
 endif
 
 " colorscheme tweaks
@@ -41,8 +43,17 @@ noremap ]l <C-W>l
 noremap ]_ :split<CR>
 noremap ]\| :vsplit<CR>
 
-noremap <D-]> :bn<CR>
-noremap <D-[> :bp<CR>
+if has("gui_macvim")
+  noremap <D-]> :bn<CR>
+  noremap <D-[> :bp<CR>
+else
+  "noremap <C-]> :bn<CR>
+  "noremap <C-[> :bp<CR>
+  inoremap OA ka
+  inoremap OB ja
+  inoremap OC la
+  inoremap OD ha
+endif
 
 imap <down> <C-E>
 imap <up> <C-Y>
@@ -152,7 +163,6 @@ au FileType ruby source $HOME/.vim/bundle/ri-browser/ftplugin/ri.vim
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
-set lines=80 columns=258
 
 map ,mru :MRU<CR>
 
