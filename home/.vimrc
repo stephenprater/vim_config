@@ -1,11 +1,8 @@
 set ttimeoutlen=100 timeoutlen=5000
 set nocompatible
 set background=dark
-<<<<<<< HEAD
 set ttymouse=xterm2
-=======
 let ruby_operators = 1
->>>>>>> 983fcbff9642cc333ec56e71806a86fefc90b739
 syntax on
 
 set t_Co=256
@@ -26,14 +23,18 @@ else
   GuiColorScheme praterhaus
   hi rubyInstanceVariable ctermfg=63
   hi rubyPredefinedVariable ctermfg=73
+  hi rubyBlockParameter ctermfg=135
   hi link rubyClassVariable rubyInstanceVariable
-  hi Comment cterm=None guibg=#BC9458 guifg=#000000 
+  "why is this backwards?
+  hi Comment ctermbg=0 ctermfg=58
 endif
 
 function! RubySyntaxTweak()
-  hi rubyOperator guifg=#00B7FF
-  hi rubyBrackets guifg=#888888
-  hi link rubyExpression rubyBrackets
+  hi rubyOperator guifg=#00B7FF ctermfg=100
+  hi rubyBrackets guifg=#888888 ctermfg=241
+  hi rubyExpressionDelimiter ctermfg=241
+  hi link rubyExpressionDelimiter rubyBrackets
+  hi link rubyBlockParameter rubyBrackets
   hi link rubyTernary rubyControl
   hi link rubyHashAssignment rubyOperator
   hi link rubyAssignment rubyOperator
@@ -41,17 +42,12 @@ function! RubySyntaxTweak()
   syn match rubyBrackets "[{}\[\]]"
   syn match rubyTernary "\s[?:]\s"
   syn match rubyAssignment "=\(>\)\@!"
-  syn region rubyExpression matchgroup=rubyExpression start="\V\s("ms=s+1 end="\V)" transparent
+  syn region rubyExpression matchgroup=rubyExpressionDelimiter start="\V\s("ms=s+1 end="\V)" transparent
+  syn region rubyBlockParameterList matchgroup=rubyExpression start="\V|" end="\V|" transparent contains=rubyBlockParameter
+  
 endfunction
 
 au Filetype ruby call RubySyntaxTweak()
-
-" colorscheme tweaks
-" make sure vim uses something like white for the text color
-"hi Normal cterm=None ctermfg=247 guifg=#CACACA
-"hi StatusLine cterm=None ctermbg=255 ctermfg=0 guibg=#000000 guifg=#FFFFFF
-"hi StatusLineNC cterm=None ctermbg=245 ctermfg=0 guibg=#000000 guifg=#898989
-"hi VertSplit cterm=None ctermbg=245 guibg=#898989
 
 noremap ]- <C-W>-
 noremap ]= <C-W>+
@@ -69,8 +65,8 @@ if has("gui_macvim")
   noremap <D-]> :bn<CR>
   noremap <D-[> :bp<CR>
 else
-  "noremap <C-]> :bn<CR>
-  "noremap <C-[> :bp<CR>
+"  noremap <C-}> :bn<CR>
+"  noremap <C-{> :bp<CR>
   inoremap OA ka
   inoremap OB ja
   inoremap OC la
