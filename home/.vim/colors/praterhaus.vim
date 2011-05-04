@@ -48,7 +48,6 @@ highlight Title              gui=bold       guifg=#507080       guibg=NONE
 highlight SpecialKey         gui=None       guifg=#666666
 highlight NonText            gui=None       guifg=#666666
 
-
 "language elements from railscasts
 highlight String                            guifg=#A5C261
 highlight Type               gui=none       guifg=#417A3A
@@ -67,6 +66,7 @@ highlight PreProc                           guifg=#AD6141
 highlight Statement          gui=NONE       guifg=#CC7833
 highlight String                            guifg=#A5C261
 highlight Special                           guifg=#4F4F7D
+highlight Delimiter                         guifg=#4F4F7D
 highlight pythonBuiltin      gui=none       guifg=#6D9CBE
 highlight rubyBlockParameter                guifg=#A1A1FF
 highlight rubyRegexpSpecial                 guifg=#57DE45
@@ -77,7 +77,7 @@ highlight rubyPredefinedConstant            guifg=#DA4939
 highlight rubyStringDelimiter               guifg=#A5C261
 highlight rubyIdentifier                    guifg=#B0B0FF
 highlight rubyInstanceVariable              guifg=#5D81D4
-highlight rubySymbol                        guifg=#255B94
+highlight rubySymbol                        guifg=#1F7D3A
 highlight rubyPseudoVariable                guifg=#6BC3FA
 highlight link rubyBoolean   rubyPseudoVariable
 highlight xmlTag                            guifg=#E8BF6A
