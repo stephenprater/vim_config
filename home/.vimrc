@@ -3,15 +3,19 @@ set nocompatible
 set background=dark
 set ttymouse=xterm2
 let ruby_operators = 1
+let $PATH='/opt/local/bin:' . $PATH
 syntax on
+
+set printoptions=paper:letter,syntax:y,wrap:y
+set printfont=Inconsolata:h10
 
 set t_Co=256
 
 call pathogen#runtime_append_all_bundles()
 
 if has("gui_macvim")
-  colorscheme praterhaus
   set guifont=Inconsolata:h14
+  colorscheme praterhaus
   set noballooneval
   set macmeta
   set mmta
@@ -32,6 +36,7 @@ function! RubySyntaxTweak()
   hi rubyOperator guifg=#878700 ctermfg=100
   hi rubyBrackets guifg=#888888 ctermfg=241
   hi rubyExpressionDelimiter guifg=#888888 ctermfg=241
+  hi rubyPunctuation guifg=#888822
   hi rubyLocalMethodCall guifg=#8F8772 ctermfg=240
   hi rubyObjectMethodCall guifg=#D1AF58 ctermfg=68
   hi Normal guifg=#DDDDDD
@@ -47,16 +52,26 @@ function! RubySyntaxTweak()
   syn match rubyBrackets "[{}\[\]]"
   syn match rubyTernary "\s[?:]\s"
   syn match rubyAssignment "=\(>\)\@!"
-  "syn match rubyLocalVariableOrMethod "\<[_[:lower:]][_[:alnum:]]*[?!=]\=" contains=NONE display transparent
+  syn match rubyLocalVariableOrMethod "\<[_[:lower:]][_[:alnum:]]*[?!=]\=" contains=NONE display transparent
   syn match rubyLocalMethodCall "\.[_[:lower:]][_[:alnum:]]*[?!=]\="hs=s+1 contains=NONE display
   syn match rubyObjectMethodCall "\.\(allocate\|new\|superclass\|freeze\|to_s\|included_modules\|include?\|name\|ancestors\|instance_methods\|public_instance_methods\|protected_instance_methods\|private_instance_methods\|constants\|const_get\|const_set\|const_defined?\|const_missing\|class_variables\|remove_class_variable\|class_variable_get\|class_variable_set\|class_variable_defined?\|module_exec\|class_exec\|module_eval\|class_eval\|method_defined?\|public_method_defined?\|private_method_defined?\|protected_method_defined?\|public_class_method\|private_class_method\|autoload\|autoload?\|instance_method\|public_instance_method\|nil?\|eql?\|hash\|class\|singleton_class\|clone\|dup\|initialize_dup\|initialize_clone\|taint\|tainted?\|untaint\|untrust\|untrusted?\|trust\|frozen?\|inspect\|methods\|singleton_methods\|protected_methods\|private_methods\|public_methods\|instance_variables\|instance_variable_get\|instance_variable_set\|instance_variable_defined?\|instance_of?\|kind_of?\|is_a?\|tap\|send\|public_send\|respond_to?\|respond_to_missing?\|extend\|display\|method\|public_method\|define_singleton_method\|object_id\|to_enum\|enum_for\|equal?\|instance_eval\|instance_exec\|\(__[[:alnum:]]*__\)\)*\_[.[:space:](\[]"me=e-1
 
   syn match rubyExpressionDelimiter "[()]"
   syn region rubyExpression matchgroup=rubyExpressionDelimiter start="[\s(]("ms=s+1 skip="\\\\\|\\)" end=")" transparent 
   syn region rubyBlockParameterList matchgroup=rubyBrackets start="\%(\%(\<do\>\|{\)\s*\)\@<=|" end="|" oneline display contains=rubyBlockParameter
-  endfunction
+endfunction
+
+function! RubySetUp()
+  set foldmethod=syntax
+  aug NoInsertFolding
+    au!
+    au InsertEnter * let b:oldfdm = &l:fdm | setl fdm=manual
+    au InsertLeave * let &l:fdm = b:oldfdm
+  aug END
+endfunction
 
 au Filetype ruby call RubySyntaxTweak()
+au Filetype ruby call RubySetUp()
 
 noremap ]- <C-W>-
 noremap ]= <C-W>+
@@ -172,7 +187,7 @@ endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
 
-command! -complete=file -nargs=+ SynCheck call s:RunShellCommand('ruby -w '.<q-args> )
+command! -complete=file -nargs=+ SynCheck call s:RunShellCommand('/opt/local/bin/ruby -w '.<q-args> )
 map ,sc :silent SynCheck %<CR>
 
 
