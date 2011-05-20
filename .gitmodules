@@ -79,6 +79,6 @@
 [submodule "home/.vim/bundle/supertab"]
 	path = home/.vim/bundle/supertab
 	url = git://github.com/ervandew/supertab.git
-[submodule "home/.vim/bundle/closetag"]
-	path = home/.vim/bundle/closetag
-	url = git://github.com/vim-scripts/closetag.vim.git
+[submodule "home/.vim/bundle/vim-ragtag"]
+	path = home/.vim/bundle/vim-ragtag
+	url = https://github.com/tpope/vim-ragtag.git
