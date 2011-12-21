@@ -57,7 +57,7 @@ setlocal foldexpr=0
 setlocal foldignore=#
 setlocal foldlevel=0
 setlocal foldmarker={{{,}}}
-setlocal foldmethod=syntax
+setlocal foldmethod=manual
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
@@ -70,13 +70,13 @@ setlocal imsearch=2
 setlocal include=^\\s*\\<\\(load\\|w*require\\)\\>
 setlocal includeexpr=substitute(substitute(v:fname,'::','/','g'),'$','.rb','')
 setlocal indentexpr=
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal indentkeys=o,O,*<Return>,<>>,{,},!^F
 setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
+setlocal iskeyword=@,48-57,_,192-255,$
 setlocal keywordprg=ri\ -T
 setlocal nolinebreak
 setlocal nolisp
-setlocal list
+setlocal nolist
 setlocal macmeta
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
@@ -86,11 +86,11 @@ setlocal nrformats=octal,hex
 setlocal number
 setlocal numberwidth=4
 setlocal omnifunc=rubycomplete#Complete
-setlocal path=.,/opt/local/lib/ruby1.9/site_ruby/1.9.1,/opt/local/lib/ruby1.9/site_ruby/1.9.1/powerpc-darwin9,/opt/local/lib/ruby1.9/site_ruby,/opt/local/lib/ruby1.9/vendor_ruby/1.9.1,/opt/local/lib/ruby1.9/vendor_ruby/1.9.1/powerpc-darwin9,/opt/local/lib/ruby1.9/vendor_ruby,/opt/local/lib/ruby1.9/1.9.1,/opt/local/lib/ruby1.9/1.9.1/powerpc-darwin9,/opt/local/lib/ruby1.9/gems/1.9.1/gems/abstract-1.0.0/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/actionmailer-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/actionpack-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activemodel-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activerecord-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activeresource-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activesupport-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/arel-2.0.5/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/builder-2.1.2/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/bundler-1.0.7/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/erubis-2.6.6/lib,/opt/local/lib/ruby1.9/gems/1.9.1
+setlocal path=.,/opt/local/lib/ruby1.9/site_ruby/1.9.1,/opt/local/lib/ruby1.9/site_ruby/1.9.1/powerpc-darwin9,/opt/local/lib/ruby1.9/site_ruby,/opt/local/lib/ruby1.9/vendor_ruby/1.9.1,/opt/local/lib/ruby1.9/vendor_ruby/1.9.1/powerpc-darwin9,/opt/local/lib/ruby1.9/vendor_ruby,/opt/local/lib/ruby1.9/1.9.1,/opt/local/lib/ruby1.9/1.9.1/powerpc-darwin9,/opt/local/lib/ruby1.9/gems/1.9.1/gems/abstract-1.0.0/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/actionmailer-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/actionpack-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activemodel-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activerecord-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activeresource-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activesupport-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/archive-tar-minitar-0.5.2/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/arel-2.0.5/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/bond-0.4.1/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/builder-2.1.2/lib,/opt/local/lib/ruby1.9/
 setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
-setlocal noreadonly
+setlocal readonly
 setlocal norelativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
@@ -119,38 +119,14 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-5
-normal zo
-7
-normal zo
-8
-normal zo
-14
-normal zo
-20
-normal zo
-28
-normal zo
-29
-normal zo
-30
-normal zo
-29
-normal zo
-28
-normal zo
-40
-normal zo
-7
-normal zo
-5
-normal zo
-let s:l = 18 - ((17 * winheight(0) + 49) / 98)
+silent! normal! zE
+let s:l = 6 - ((0 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-18
-normal! 06l
+6
+normal! 033l
+lcd ~/
 let &so = s:so_save | let &siso = s:siso_save
 doautoall SessionLoadPost
 " vim: set ft=vim :

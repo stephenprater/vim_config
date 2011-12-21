@@ -86,7 +86,7 @@ setlocal nrformats=octal,hex
 setlocal number
 setlocal numberwidth=4
 setlocal omnifunc=rubycomplete#Complete
-setlocal path=.,/opt/local/lib/ruby1.9/site_ruby/1.9.1,/opt/local/lib/ruby1.9/site_ruby/1.9.1/powerpc-darwin9,/opt/local/lib/ruby1.9/site_ruby,/opt/local/lib/ruby1.9/vendor_ruby/1.9.1,/opt/local/lib/ruby1.9/vendor_ruby/1.9.1/powerpc-darwin9,/opt/local/lib/ruby1.9/vendor_ruby,/opt/local/lib/ruby1.9/1.9.1,/opt/local/lib/ruby1.9/1.9.1/powerpc-darwin9,/opt/local/lib/ruby1.9/gems/1.9.1/gems/abstract-1.0.0/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/actionmailer-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/actionpack-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activemodel-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activerecord-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activeresource-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activesupport-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/arel-2.0.5/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/builder-2.1.2/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/bundler-1.0.7/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/erubis-2.6.6/lib,/opt/local/lib/ruby1.9/gems/1.9.1
+setlocal path=.,/opt/local/lib/ruby1.9/site_ruby/1.9.1,/opt/local/lib/ruby1.9/site_ruby/1.9.1/powerpc-darwin9,/opt/local/lib/ruby1.9/site_ruby,/opt/local/lib/ruby1.9/vendor_ruby/1.9.1,/opt/local/lib/ruby1.9/vendor_ruby/1.9.1/powerpc-darwin9,/opt/local/lib/ruby1.9/vendor_ruby,/opt/local/lib/ruby1.9/1.9.1,/opt/local/lib/ruby1.9/1.9.1/powerpc-darwin9,/opt/local/lib/ruby1.9/gems/1.9.1/gems/abstract-1.0.0/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/actionmailer-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/actionpack-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activemodel-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activerecord-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activeresource-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/activesupport-3.0.3/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/archive-tar-minitar-0.5.2/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/arel-2.0.5/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/bond-0.4.1/lib,/opt/local/lib/ruby1.9/gems/1.9.1/gems/builder-2.1.2/lib,/opt/local/lib/ruby1.9/
 setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
@@ -120,12 +120,13 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 166 - ((0 * winheight(0) + 49) / 98)
+let s:l = 16 - ((15 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-166
-normal! 032l
+16
+normal! 036l
+lcd ~/
 let &so = s:so_save | let &siso = s:siso_save
 doautoall SessionLoadPost
 " vim: set ft=vim :

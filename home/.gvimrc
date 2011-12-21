@@ -3,13 +3,26 @@ set nocompatible
 set background=dark
 set ttymouse=xterm2
 let ruby_operators = 1
+let g:TList_Use_Right_Window=1
+let g:TList_WinWidth=80
+
+"yankring you bastard
+let g:yankring_zap_keys = 'f F t T / ?'
+
 syntax on
 
 set t_Co=256
 
 call pathogen#runtime_append_all_bundles()
 
+let g:ruby_debugger_debug_mode = 1
+let g:github_user = "stephenprater"
+let g:github_token = "35350330e6d48647aaa6444e2fd62c45"
+let g:gist_open_browser_after_post = 1
+let g:gist_detect_filetype = 1
+
 if has("gui_macvim")
+  let $SSH_ASKPASS = "/opt/local/libexec/ssh-askpass"
   set guifont=Inconsolata:h14
   colorscheme praterhaus
   set noballooneval
@@ -28,7 +41,29 @@ else
   hi Comment ctermbg=0 ctermfg=58
 endif
 
+function! RedoSyntax()
+  syntax clear
+  source $HOME/.vim/test_syntax.vim
+endfunction
+"map ,rs :call RedoSyntax()<CR>
+
 function! RubySyntaxTweak()
+  "some additiona syntax stuff i like
+  syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]*" contains=NONE display
+  syn match rubyHashAssignment "=>"
+  syn match rubyBrackets "[{}\[\]]"
+  syn match rubyTernary "\s[?:]\s"
+  syn match rubyAssignment "=\(>\)\@!"
+  "syn match rubyLocalVariableOrMethod "\<[_[:lower:]][_[:alnum:]]*[?!=]\=" contains=NONE display transparent
+  syn match rubyLocalMethodCall "\.[_[:lower:]][_[:alnum:]]*[?!=]\="hs=s+1 contains=NONE display
+  syn match rubyObjectMethodCall "\.\(allocate\|new\|superclass\|freeze\|to_s\|included_modules\|include?\|name\|ancestors\|instance_methods\|public_instance_methods\|protected_instance_methods\|private_instance_methods\|constants\|const_get\|const_set\|const_defined?\|const_missing\|class_variables\|remove_class_variable\|class_variable_get\|class_variable_set\|class_variable_defined?\|module_exec\|class_exec\|module_eval\|class_eval\|method_defined?\|public_method_defined?\|private_method_defined?\|protected_method_defined?\|public_class_method\|private_class_method\|autoload\|autoload?\|instance_method\|public_instance_method\|nil?\|eql?\|hash\|class\|singleton_class\|clone\|dup\|initialize_dup\|initialize_clone\|taint\|tainted?\|untaint\|untrust\|untrusted?\|trust\|frozen?\|inspect\|methods\|singleton_methods\|protected_methods\|private_methods\|public_methods\|instance_variables\|instance_variable_get\|instance_variable_set\|instance_variable_defined?\|instance_of?\|kind_of?\|is_a?\|tap\|send\|public_send\|respond_to?\|respond_to_missing?\|extend\|display\|method\|public_method\|define_singleton_method\|object_id\|to_enum\|enum_for\|equal?\|instance_eval\|instance_exec\|\(__[[:alnum:]]*__\)\)*\_[.[:space:](\[]"me=e-1
+  syn keyword rubyKernelMethod switch on aif
+  syn match rubyExpressionDelimiter "[()]"
+  syn region rubyExpression matchgroup=rubyExpressionDelimiter start="[\s(]("ms=s+1 skip="\\\\\|\\)" end=")" transparent 
+  syn region rubyBlockParameterList matchgroup=rubyBrackets start="\%(\%(\<do\>\|{\)\s*\)\@<=|" end="|" oneline display contains=rubyBlockParameter, rubyOperator
+
+
+  "hightlight gorups for that stuff
   hi rubyOperator guifg=#878700 ctermfg=100
   hi rubyBrackets guifg=#888888 ctermfg=241
   hi rubyExpressionDelimiter guifg=#888888 ctermfg=241
@@ -42,21 +77,14 @@ function! RubySyntaxTweak()
   hi link rubyHashAssignment rubyOperator
   hi link rubyAssignment rubyOperator
   hi link rubyInterpolationDelimiter Delimiter
-  syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]*" contains=NONE display
-  syn match rubyHashAssignment "=>"
-  syn match rubyBrackets "[{}\[\]]"
-  syn match rubyTernary "\s[?:]\s"
-  syn match rubyAssignment "=\(>\)\@!"
-  "syn match rubyLocalVariableOrMethod "\<[_[:lower:]][_[:alnum:]]*[?!=]\=" contains=NONE display transparent
-  syn match rubyLocalMethodCall "\.[_[:lower:]][_[:alnum:]]*[?!=]\="hs=s+1 contains=NONE display
-  syn match rubyObjectMethodCall "\.\(allocate\|new\|superclass\|freeze\|to_s\|included_modules\|include?\|name\|ancestors\|instance_methods\|public_instance_methods\|protected_instance_methods\|private_instance_methods\|constants\|const_get\|const_set\|const_defined?\|const_missing\|class_variables\|remove_class_variable\|class_variable_get\|class_variable_set\|class_variable_defined?\|module_exec\|class_exec\|module_eval\|class_eval\|method_defined?\|public_method_defined?\|private_method_defined?\|protected_method_defined?\|public_class_method\|private_class_method\|autoload\|autoload?\|instance_method\|public_instance_method\|nil?\|eql?\|hash\|class\|singleton_class\|clone\|dup\|initialize_dup\|initialize_clone\|taint\|tainted?\|untaint\|untrust\|untrusted?\|trust\|frozen?\|inspect\|methods\|singleton_methods\|protected_methods\|private_methods\|public_methods\|instance_variables\|instance_variable_get\|instance_variable_set\|instance_variable_defined?\|instance_of?\|kind_of?\|is_a?\|tap\|send\|public_send\|respond_to?\|respond_to_missing?\|extend\|display\|method\|public_method\|define_singleton_method\|object_id\|to_enum\|enum_for\|equal?\|instance_eval\|instance_exec\|\(__[[:alnum:]]*__\)\)*\_[.[:space:](\[]"me=e-1
+  hi link rubyKernelMethod Keyword 
 
-  syn match rubyExpressionDelimiter "[()]"
-  syn region rubyExpression matchgroup=rubyExpressionDelimiter start="[\s(]("ms=s+1 skip="\\\\\|\\)" end=")" transparent 
-  syn region rubyBlockParameterList matchgroup=rubyBrackets start="\%(\%(\<do\>\|{\)\s*\)\@<=|" end="|" oneline display contains=rubyBlockParameter
-  endfunction
+endfunction
 
 au Filetype ruby call RubySyntaxTweak()
+
+au InsertEnter * if !exists('w:last_fdm') | let w:last_fdm = &foldmethod | setlocal foldmethod=manual | endif
+au InsertLeave * if exists('w:last_fdm') | let &l:foldmethod = w:last_fdm | unlet w:last_fdm | endif
 
 noremap ]- <C-W>-
 noremap ]= <C-W>+
@@ -69,6 +97,11 @@ noremap ]l <C-W>l
 
 noremap ]_ :split<CR>
 noremap ]\| :vsplit<CR>
+
+noremap <leader><leader>f :FufCoverageFile<CR>
+noremap <leader><leader>l :FufLine<CR>
+noremap <leader><leader>t :FufTagWithCursorWord<CR>
+noremap <leader><leader>b :FufBuffer<CR>
 
 if has("gui_macvim")
   noremap <D-]> :bn<CR>
@@ -110,6 +143,8 @@ set ignorecase
 set smartcase
 set directory=~/.vim/swap,.
 
+let g:Tlist_Use_Right_Window=1
+
 let mapleader = ","
 
 "set up minibufexplorer
@@ -123,6 +158,10 @@ map ,<TAB> :TMiniBufExplorer<CR>
 let g:yankring_min_element_length=2
 let mapleader = ","
 
+let g:ConqueTerm_Color=1
+let g:ConqueTerm_TERM='xterm-256color'
+let g:ConqueTerm_ReadUnfocused=1
+
 "invisibles
 map ,l :set list!<CR>
 set listchars=tab:\|\ ,eol:¬
@@ -131,14 +170,18 @@ set list
 
 ",v brings up my .vimrc
 ",V reloads it -- making all changes active (have to save first)
+"
+" change spaces to tabs
+command! -nargs=1 -range SuperRetab <line1>,<line2>s/\v%(^ *)@<= {<args>}/\t/g
 
 map ,v :sp ~/.vimrc<CR><C-W>_
 map <silent> ,V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 map ,q <Plug>Kwbd
-map <silent> ,f :set fu<CR>
 map ,yr :YRShow<CR>
 map <silent> ,cn :cn<CR>
 map <silent> ,cp :cp<CR>
+
+
 
 function! s:SudoWrite()
   w !sudo tee % > /dev/null
@@ -171,9 +214,20 @@ function! AppendModeline()
 endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
+function! HighlightGroup()
+  let l:syndict = {}
+  let syndict["higlight"] = synIDattr(synID(line("."),col("."),1),"name")
+  let syndict["trans"] = synIDattr(synID(line("."),col("."),0),"name") 
+  let syndict["lolight"] = synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
+  let syndict["fg_col"] = synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#") 
+  echo syndict 
+endfunction
 
-command! -complete=file -nargs=+ SynCheck call s:RunShellCommand('ruby -w '.<q-args> )
+command! -complete=file -nargs=+ SynCheck call s:RunShellCommand('/opt/local/bin/ruby -w '.<q-args> )
 map ,sc :silent SynCheck %<CR>
+
+" weird name for this variable
+let g:ruby_debugger_progname = '/Applications/MacVim.app/Contents/MacOS/Vim'
 
 
 " open nerd tree, and jump to the editing window
@@ -189,11 +243,10 @@ highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
 
-map ,mru :MRU<CR>
+nmap ,mru :MRU<CR>
 
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%{ruby_debugger#statusline()}%-14.(%l,%c%V%)\ %P
 
 ab edn end
-map ,sp :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+nmap <Leader>sp :call HighlightGroup()<cr>
 
-map ,mru :MRU<CR>

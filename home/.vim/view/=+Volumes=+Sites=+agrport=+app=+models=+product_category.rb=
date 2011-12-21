@@ -85,13 +85,13 @@ setlocal imsearch=2
 setlocal include=^\\s*\\<\\(load\\|w*require\\)\\>
 setlocal includeexpr=RailsIncludeexpr()
 setlocal indentexpr=
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal indentkeys=o,O,*<Return>,<>>,{,},!^F
 setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
+setlocal iskeyword=@,48-57,_,192-255,$
 setlocal keywordprg=ri\ -T
 setlocal nolinebreak
 setlocal nolisp
-setlocal nolist
+setlocal list
 setlocal macmeta
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
@@ -118,7 +118,7 @@ setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
-setlocal statusline=%<%f\ %h%m%r%{rails#statusline()}%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+setlocal statusline=%<%f\ %h%m%r%{rails#statusline()}%{fugitive#statusline()}%=%{ruby_debugger#statusline()}%-14.(%l,%c%V%)\ %P
 setlocal suffixesadd=.rb,.rhtml,.erb,.rxml,.builder,.rjs,.mab,.liquid,.haml,.dryml,.mn,.yml,.csv,.rake,s.rb
 setlocal swapfile
 setlocal synmaxcol=3000
@@ -141,6 +141,7 @@ exe s:l
 normal! zt
 1
 normal! 0
+lcd ~/
 let &so = s:so_save | let &siso = s:siso_save
 doautoall SessionLoadPost
 " vim: set ft=vim :

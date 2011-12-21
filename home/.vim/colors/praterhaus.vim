@@ -80,9 +80,6 @@ highlight rubyInstanceVariable              guifg=#5D81D4
 highlight rubySymbol                        guifg=#1F7D3A
 highlight rubyPseudoVariable                guifg=#6BC3FA
 
-highlight rubyMethodDeclaration             
-highlight rubyMethodBlock                   
-highlight rubyMethodParameter               
 highlight link rubyMethodName Function
 
 highlight link rubyBoolean   rubyPseudoVariable

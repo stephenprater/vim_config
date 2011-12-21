@@ -6,7 +6,7 @@
 	url = http://github.com/scrooloose/nerdtree.git
 [submodule "home/.vim/bundle/yankring"]
 	path = home/.vim/bundle/yankring
-	url = http://github.com/chrismetcalf/vim-yankring.git
+	url = http://github.com/vim-scripts/YankRing.git
 [submodule "home/.vim/bundle/tailminusf"]
 	path = home/.vim/bundle/tailminusf
 	url = http://github.com/vim-scripts/TailMinusF.git
@@ -82,3 +82,12 @@
 [submodule "home/.vim/bundle/vim-ragtag"]
 	path = home/.vim/bundle/vim-ragtag
 	url = https://github.com/tpope/vim-ragtag.git
+[submodule "home/.vim/bundle/dbext"]
+	path = home/.vim/bundle/dbext
+	url = https://github.com/vimscripts/dbext.vim.git
+[submodule "home/.vim/bundle/vim-ruby-debugger"]
+	path = home/.vim/bundle/vim-ruby-debugger
+	url = https://github.com/stephenprater/vim-ruby-debugger.git
+[submodule "home/.vim/bundle/cocoa.vim"]
+	path = home/.vim/bundle/cocoa.vim
+	url = git://github.com/msanders/cocoa.vim.git

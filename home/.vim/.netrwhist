@@ -1,3 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
-let g:netrw_dirhist_1='/Users/stephenp'
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='scp://stephenp@delivery.agrussell.net:31927//usr/local/www/'
+let g:netrw_dirhist_2='scp://stephenp@delivery.agrussell.net:31927//usr/local/www/delivery.data/'
+let g:netrw_dirhist_3='scp://stephenp@delivery.agrussell.net:31927//usr/local/www/delivery.data/cuttingedge/'
+let g:netrw_dirhist_4='scp://stephenp@delivery.agrussell.net:31927//usr/local/www/delivery.data/cuttingedge/subscribe/'
+let g:netrw_dirhist_5='scp://stephenp@delivery.agrussell.net//usr/local/www/delivery.data/cuttingedge/subscribe/'
