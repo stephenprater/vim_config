@@ -9,19 +9,19 @@
 	url = http://github.com/vim-scripts/YankRing.git
 [submodule "home/.vim/bundle/tailminusf"]
 	path = home/.vim/bundle/tailminusf
-	url = http://github.com/vim-scripts/TailMinusF.git
+	url = git://github.com/vim-scripts/TailMinusF.git
 [submodule "home/.vim/bundle/syntastic"]
 	path = home/.vim/bundle/syntastic
-	url = http://github.com/scrooloose/syntastic.git
+	url = git://github.com/scrooloose/syntastic.git
 [submodule "home/.vim/bundle/surround"]
 	path = home/.vim/bundle/surround
-	url = http://github.com/tpope/vim-surround.git
+	url = git://github.com/tpope/vim-surround.git
 [submodule "home/.vim/bundle/space"]
 	path = home/.vim/bundle/space
 	url = http://github.com/spiiph/vim-space.git
 [submodule "home/.vim/bundle/snipmate"]
 	path = home/.vim/bundle/snipmate
-	url = http://github.com/msanders/snipmate.vim.git
+	url = git://github.com/msanders/snipmate.vim.git
 [submodule "home/.vim/bundle/scratch"]
 	path = home/.vim/bundle/scratch
 	url = http://github.com/vim-scripts/scratch.vim.git
@@ -51,13 +51,13 @@
 	url = http://github.com/tpope/vim-endwise.git
 [submodule "home/.vim/bundle/conque"]
 	path = home/.vim/bundle/conque
-	url = http://github.com/rson/vim-conque.git
+	url = git://github.com/vim-scripts/Conque-Shell.git
 [submodule "home/.vim/bundle/commandT"]
 	path = home/.vim/bundle/commandT
 	url = http://github.com/wincent/Command-T.git
 [submodule "home/.vim/bundle/camelcasemotion"]
 	path = home/.vim/bundle/camelcasemotion
-	url = http://github.com/vim-scripts/camelcasemotion.git
+	url = git://github.com/vim-scripts/camelcasemotion.git
 [submodule "home/.vim/bundle/bufonly"]
 	path = home/.vim/bundle/bufonly
 	url = http://github.com/duff/vim-bufonly.git
@@ -66,10 +66,10 @@
 	url = http://github.com/vim-scripts/bufexplorer.zip.git
 [submodule "home/.vim/bundle/autoclose"]
 	path = home/.vim/bundle/autoclose
-	url = http://github.com/Townk/vim-autoclose.git
+	url = git://github.com/vim-scripts/AutoClose.git
 [submodule "home/.vim/bundle/asneeded"]
 	path = home/.vim/bundle/asneeded
-	url = http://github.com/vim-scripts/AsNeeded.git
+	url = git://github.com/vim-scripts/AsNeeded.git
 [submodule "home/.vim/bundle/align"]
 	path = home/.vim/bundle/align
 	url = http://github.com/vim-scripts/Align.vim.git
@@ -81,7 +81,7 @@
 	url = git://github.com/ervandew/supertab.git
 [submodule "home/.vim/bundle/vim-ragtag"]
 	path = home/.vim/bundle/vim-ragtag
-	url = https://github.com/tpope/vim-ragtag.git
+	url = git://github.com/tpope/vim-ragtag.git
 [submodule "home/.vim/bundle/dbext"]
 	path = home/.vim/bundle/dbext
 	url = https://github.com/vimscripts/dbext.vim.git
@@ -91,3 +91,6 @@
 [submodule "home/.vim/bundle/cocoa.vim"]
 	path = home/.vim/bundle/cocoa.vim
 	url = git://github.com/msanders/cocoa.vim.git
+[submodule "home/.vim/bundle/vim-coffee-script"]
+	path = home/.vim/bundle/vim-coffee-script
+	url = git://github.com/kchmck/vim-coffee-script.git
