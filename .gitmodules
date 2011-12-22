@@ -94,3 +94,33 @@
 [submodule "home/.vim/bundle/vim-coffee-script"]
 	path = home/.vim/bundle/vim-coffee-script
 	url = git://github.com/kchmck/vim-coffee-script.git
+[submodule "sessionman"]
+	path = sessionman
+	url = git://github.com/slack/vim-l9.git
+[submodule "home/.vim/bundle/ansiesc"]
+	path = home/.vim/bundle/ansiesc
+	url = git://github.com/vim-scripts/AnsiEsc.vim.git
+[submodule "home/.vim/bundle/bclose"]
+	path = home/.vim/bundle/bclose
+	url = git://github.com/cespare/vim-bclose.git
+[submodule "home/.vim/bundle/decho"]
+	path = home/.vim/bundle/decho
+	url = git://github.com/vim-scripts/Decho.git
+[submodule "home/.vim/bundle/easytags"]
+	path = home/.vim/bundle/easytags
+	url = git://github.com/vim-scripts/easytags.vim.git
+[submodule "home/.vim/bundle/fuzzyfinder"]
+	path = home/.vim/bundle/fuzzyfinder
+	url = git://github.com/vim-scripts/FuzzyFinder.git
+[submodule "home/.vim/bundle/minibufexpl"]
+	path = home/.vim/bundle/minibufexpl
+	url = git://github.com/fholgado/minibufexpl.vim.git
+[submodule "home/.vim/bundle/mru"]
+	path = home/.vim/bundle/mru
+	url = git://github.com/vim-scripts/mru.vim.git
+[submodule "home/.vim/bundle/sessionman"]
+	path = home/.vim/bundle/sessionman
+	url = git://github.com/vim-scripts/sessionman.vim.git
+[submodule "home/.vim/bundle/taglist"]
+	path = home/.vim/bundle/taglist
+	url = git://github.com/stephenprater/taglist.vim.git
