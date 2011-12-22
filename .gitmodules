@@ -124,3 +124,6 @@
 [submodule "home/.vim/bundle/taglist"]
 	path = home/.vim/bundle/taglist
 	url = git://github.com/stephenprater/taglist.vim.git
+[submodule "home/.vim/bundle/srcexpl"]
+	path = home/.vim/bundle/srcexpl
+	url = git://github.com/vim-scripts/Source-Explorer-srcexpl.vim.git
