@@ -81,7 +81,7 @@
 	url = git://github.com/tpope/vim-ragtag.git
 [submodule "home/.vim/bundle/dbext"]
 	path = home/.vim/bundle/dbext
-	url = https://github.com/vimscripts/dbext.vim.git
+	url = git://github.com/vim-scripts/dbext.vim
 [submodule "home/.vim/bundle/vim-ruby-debugger"]
 	path = home/.vim/bundle/vim-ruby-debugger
 	url = https://github.com/stephenprater/vim-ruby-debugger.git
