@@ -124,3 +124,6 @@
 [submodule "home/.vim/bundle/srcexpl"]
 	path = home/.vim/bundle/srcexpl
 	url = git://github.com/vim-scripts/Source-Explorer-srcexpl.vim.git
+[submodule "home/.vim/bundle/vim-l9"]
+	path = home/.vim/bundle/vim-l9
+	url = git://github.com/slack/vim-l9.git
