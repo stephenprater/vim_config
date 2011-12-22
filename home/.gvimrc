@@ -10,6 +10,8 @@ let g:TList_WinWidth=80
 let g:yankring_zap_keys = 'f F t T / ?'
 
 syntax on
+filetype plugin indent on
+set wildmenu
 
 set t_Co=256
 
@@ -20,10 +22,11 @@ let g:github_user = "stephenprater"
 let g:github_token = "35350330e6d48647aaa6444e2fd62c45"
 let g:gist_open_browser_after_post = 1
 let g:gist_detect_filetype = 1
+set updatetime=4000
 
 if has("gui_macvim")
   let $SSH_ASKPASS = "/opt/local/libexec/ssh-askpass"
-  set guifont=Inconsolata:h14
+  set guifont=Bitstream\ Vera\ Sans\ Mono:h12
   colorscheme praterhaus
   set noballooneval
   set macmeta
@@ -62,14 +65,6 @@ function! RubySyntaxTweak()
   syn region rubyExpression matchgroup=rubyExpressionDelimiter start="[\s(]("ms=s+1 skip="\\\\\|\\)" end=")" transparent 
   syn region rubyBlockParameterList matchgroup=rubyBrackets start="\%(\%(\<do\>\|{\)\s*\)\@<=|" end="|" oneline display contains=rubyBlockParameter, rubyOperator
 
-
-  "hightlight gorups for that stuff
-  hi rubyOperator guifg=#878700 ctermfg=100
-  hi rubyBrackets guifg=#888888 ctermfg=241
-  hi rubyExpressionDelimiter guifg=#888888 ctermfg=241
-  hi rubyLocalMethodCall guifg=#8F8772 ctermfg=240
-  hi rubyObjectMethodCall guifg=#D1AF58 ctermfg=68
-  hi Normal guifg=#DDDDDD
   hi link rubyExpressionDelimiter rubyBrackets
   hi link rubyBlockParameter rubyBrackets
   hi link rubyBlockArgument rubyBlockParameter
