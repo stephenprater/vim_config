@@ -79,6 +79,9 @@ highlight rubyIdentifier                    guifg=#B0B0FF
 highlight rubyInstanceVariable              guifg=#5D81D4
 highlight rubySymbol                        guifg=#1F7D3A
 highlight rubyPseudoVariable                guifg=#6BC3FA
+
+highlight link rubyMethodName Function
+
 highlight link rubyBoolean   rubyPseudoVariable
 highlight xmlTag                            guifg=#E8BF6A
 highlight xmlTagName                        guifg=#E8BF6A
@@ -87,9 +90,23 @@ highlight xmlEndTag                         guifg=#E8BF6A
 highlight mailSubject                       guifg=#A5C261
 highlight mailHeaderKey                     guifg=#FFC66D
 highlight mailEmail         gui=italic      guifg=#A5C261
-
+highlight rubyOperator                      guifg=#878700
+highlight rubyBrackets                      guifg=#888888
+highlight rubyExpressionDelimiter           guifg=#888888
+highlight rubyPunctuation                   guifg=#888822
+highlight rubyLocalMethodCall               guifg=#8F8772
+highlight rubyObjectMethodCall              guifg=#D1AF58
+highlight Normal                            guifg=#DDDDDD
+highlight link rubyExpressionDelimiter rubyBrackets
+highlight link rubyBlockParameter rubyBrackets
+highlight link rubyBlockArgument rubyBlockParameter
+highlight link rubyTernary rubyControl
+highlight link rubyHashAssignment rubyOperator
+highlight link rubyAssignment rubyOperator
+highlight link rubyInterpolationDelimiter Delimiter
 
 highlight link rubyClass            Statement 
+highlight link rubyDefine           Statement
 
 highlight vimHiGuiRgbi                      guifg=#035587
 highlight vimNotation                       guifg=#8A00D2
