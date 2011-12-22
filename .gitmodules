@@ -94,9 +94,6 @@
 [submodule "home/.vim/bundle/vim-coffee-script"]
 	path = home/.vim/bundle/vim-coffee-script
 	url = git://github.com/kchmck/vim-coffee-script.git
-[submodule "sessionman"]
-	path = sessionman
-	url = git://github.com/slack/vim-l9.git
 [submodule "home/.vim/bundle/ansiesc"]
 	path = home/.vim/bundle/ansiesc
 	url = git://github.com/vim-scripts/AnsiEsc.vim.git
