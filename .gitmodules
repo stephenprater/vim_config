@@ -6,7 +6,7 @@
 	url = http://github.com/scrooloose/nerdtree.git
 [submodule "home/.vim/bundle/yankring"]
 	path = home/.vim/bundle/yankring
-	url = http://github.com/vim-scripts/YankRing.git
+	url = https://github.com/vim-scripts/YankRing.vim
 [submodule "home/.vim/bundle/tailminusf"]
 	path = home/.vim/bundle/tailminusf
 	url = git://github.com/vim-scripts/TailMinusF.git
@@ -64,9 +64,6 @@
 [submodule "home/.vim/bundle/bufexplorer"]
 	path = home/.vim/bundle/bufexplorer
 	url = http://github.com/vim-scripts/bufexplorer.zip.git
-[submodule "home/.vim/bundle/autoclose"]
-	path = home/.vim/bundle/autoclose
-	url = git://github.com/vim-scripts/AutoClose.git
 [submodule "home/.vim/bundle/asneeded"]
 	path = home/.vim/bundle/asneeded
 	url = git://github.com/vim-scripts/AsNeeded.git
@@ -127,3 +124,6 @@
 [submodule "home/.vim/bundle/vim-l9"]
 	path = home/.vim/bundle/vim-l9
 	url = git://github.com/slack/vim-l9.git
+[submodule "home/.vim/bundle/autoclose"]
+	path = home/.vim/bundle/autoclose
+	url = git://github.com/vim-scripts/AutoClose.git
