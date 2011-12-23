@@ -63,7 +63,7 @@
 	url = http://github.com/duff/vim-bufonly.git
 [submodule "home/.vim/bundle/bufexplorer"]
 	path = home/.vim/bundle/bufexplorer
-	url = http://github.com/vim-scripts/bufexplorer.zip.git
+	url = git://github.com/markabe/bufexplorer.git
 [submodule "home/.vim/bundle/asneeded"]
 	path = home/.vim/bundle/asneeded
 	url = git://github.com/vim-scripts/AsNeeded.git

@@ -17,6 +17,8 @@ set t_Co=256
 
 call pathogen#runtime_append_all_bundles()
 
+set updatetime=4000
+
 let g:ruby_debugger_debug_mode = 1
 let g:github_user = "stephenprater"
 let g:github_token = "35350330e6d48647aaa6444e2fd62c45"
@@ -27,11 +29,11 @@ set updatetime=4000
 if has("gui_macvim")
   let $SSH_ASKPASS = "/opt/local/libexec/ssh-askpass"
   set guifont=Bitstream\ Vera\ Sans\ Mono:h12
-  colorscheme praterhaus
+  colorscheme herald
+  set guioptions-=rlLT
   set noballooneval
   set macmeta
   set mmta
-  set guioptions-=T
 else
   " have to load this one explicitly:b8
   so $HOME/.vim/plugin/guicolorscheme.vim
