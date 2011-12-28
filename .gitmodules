@@ -127,3 +127,6 @@
 [submodule "home/.vim/bundle/autoclose"]
 	path = home/.vim/bundle/autoclose
 	url = git://github.com/vim-scripts/AutoClose.git
+[submodule "home/.vim/bundle/vim-slim"]
+	path = home/.vim/bundle/vim-slim
+	url = git://github.com/bbommarito/vim-slim.git
