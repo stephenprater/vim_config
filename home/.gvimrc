@@ -1,3 +1,5 @@
+call pathogen#infect()
+
 set ttimeoutlen=100 timeoutlen=5000
 set nocompatible
 set background=dark
@@ -15,7 +17,6 @@ set wildmenu
 
 set t_Co=256
 
-call pathogen#runtime_append_all_bundles()
 
 set updatetime=4000
 

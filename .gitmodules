@@ -130,3 +130,6 @@
 [submodule "home/.vim/bundle/vim-slim"]
 	path = home/.vim/bundle/vim-slim
 	url = git://github.com/bbommarito/vim-slim.git
+[submodule "home/.vim/external/vim_pathogen"]
+	path = home/.vim/external/vim_pathogen
+	url = git://github.com/tpope/vim-pathogen.git
