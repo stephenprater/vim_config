@@ -1,3 +1,16 @@
+"fix fucking easytags
+let g:easytags_autohighlight = 0
+let g:easytags_updatetime_autodisable = 1
+
+"tag list
+let g:TList_Use_Right_Window=1
+let g:TList_WinWidth=80
+
+"yankring you bastard
+let g:yankring_zap_keys = 'f F t T / ?'
+
+
+"load pathogen, the damage from the plugins should be contained
 call pathogen#infect()
 
 set ttimeoutlen=100 timeoutlen=5000
@@ -5,11 +18,6 @@ set nocompatible
 set background=dark
 set ttymouse=xterm2
 let ruby_operators = 1
-let g:TList_Use_Right_Window=1
-let g:TList_WinWidth=80
-
-"yankring you bastard
-let g:yankring_zap_keys = 'f F t T / ?'
 
 syntax on
 filetype plugin indent on
@@ -17,15 +25,11 @@ set wildmenu
 
 set t_Co=256
 
-
-set updatetime=4000
-
 let g:ruby_debugger_debug_mode = 1
 let g:github_user = "stephenprater"
 let g:github_token = "35350330e6d48647aaa6444e2fd62c45"
 let g:gist_open_browser_after_post = 1
 let g:gist_detect_filetype = 1
-set updatetime=4000
 
 if has("gui_macvim")
   let $SSH_ASKPASS = "/opt/local/libexec/ssh-askpass"
