@@ -13,6 +13,12 @@ let g:yankring_zap_keys = 'f F t T / ?'
 "load pathogen, the damage from the plugins should be contained
 call pathogen#infect()
 
+" REALLY DON"T DO THAT.
+let g:easytags_autohighlight = 0
+let g:easytags_updatetime_autodisable = 1
+
+let g:miniBufExplCheckDupeBufs=0
+
 set ttimeoutlen=100 timeoutlen=5000
 set nocompatible
 set background=dark
@@ -170,6 +176,11 @@ set listchars=tab:\|\ ,eol:¬
 
 set list
 
+command! -nargs=? -complete=tag Pry call PryWord(<f-args>)
+nmap ,,tm :SendToTmux<CR>
+nmap ,,tmv :SetTmuxVars<CR>
+nmap ,,p  :Pry<CR>
+
 ",v brings up my .vimrc
 ",V reloads it -- making all changes active (have to save first)
 "
@@ -223,6 +234,16 @@ function! HighlightGroup()
   let syndict["lolight"] = synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
   let syndict["fg_col"] = synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#") 
   echo syndict 
+endfunction
+
+function! PryWord(...)
+  if a:0 == '0'
+    let word = expand("<cword>")
+  else
+    let word = a:1
+  endif
+  let comm = 'pry ' . word . ''
+  call Send_to_Tmux(comm)
 endfunction
 
 command! -complete=file -nargs=+ SynCheck call s:RunShellCommand('/opt/local/bin/ruby -w '.<q-args> )
