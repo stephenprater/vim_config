@@ -19,9 +19,6 @@
 [submodule "home/.vim/bundle/space"]
 	path = home/.vim/bundle/space
 	url = http://github.com/spiiph/vim-space.git
-[submodule "home/.vim/bundle/snipmate"]
-	path = home/.vim/bundle/snipmate
-	url = git://github.com/msanders/snipmate.vim.git
 [submodule "home/.vim/bundle/scratch"]
 	path = home/.vim/bundle/scratch
 	url = http://github.com/vim-scripts/scratch.vim.git
@@ -136,3 +133,9 @@
 [submodule "home/.vim/bundle/vim-shell"]
 	path = home/.vim/bundle/vim-shell
 	url = git://github.com/xolox/vim-shell
+[submodule "home/.vim/bundle/ultisnips"]
+	path = home/.vim/bundle/ultisnips
+	url = git://github.com/vim-scripts/UltiSnips.git
+[submodule "home/.vim/bundle/tslime"]
+  path = home/.vim/bundle/tslime
+  url = git://github.com/kikijump/tslime.vim.git
