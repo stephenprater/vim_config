@@ -265,6 +265,12 @@ endif
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
+function! CreatePurchaseString()
+  '<,'>s/^\(.\{-}\)\(\s\|$\)/pn=\1\&qty_\1=1\&/g
+  '<,'>s/-/hhh/g
+  '<,'>s/\n//g
+  s/&$/g
+endfunction
 
 nmap ,mru :MRU<CR>
 
