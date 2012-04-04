@@ -9,6 +9,11 @@ let g:TList_WinWidth=80
 "yankring you bastard
 let g:yankring_zap_keys = 'f F t T / ?'
 
+let g:UltiSnipsSnippetDirectories = ["UltiSnips","snippets"]
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
 
 "load pathogen, the damage from the plugins should be contained
 call pathogen#infect()

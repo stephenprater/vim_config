@@ -1,0 +1,36 @@
+global !p
+def titleize(inp):
+  import re
+  inps = re.sub(r'[_-]',' ',inp).split('.')[0]
+  return ' '.join([x[0:1].upper() + x[1:] for x in inps.split(' ')])
+
+endglobal
+
+snippet feature "Cucumber Feature" b
+Feature: ${1:`!p snip.rv = titleize(snip.fn)`}
+  In order to ${2:action}
+  As a ${3:role}
+  I want ${4:feature}
+  $0
+endsnippet
+
+snippet scen "Cucumber Scenario" b
+Scenario: ${1:title}
+  Given ${2:context}
+  When ${3:event}
+  Then ${4:outcome}
+$0
+endsnippet
+
+snippet scen "Cucumber Scenario Heading" b
+Scenario: ${1:title}
+$0
+endsnippet
+
+snippet scen "Cucumber Scenario Outline" b
+ Scenario Outline: ${1:title}
+  Given ${2:context}
+  When ${3:event}
+  Then ${4:outcome} 
+$0
+endsnippet
