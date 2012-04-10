@@ -1,6 +1,5 @@
 global !p
 def titleize(inp):
-  import re
   inps = re.sub(r'[_-]',' ',inp).split('.')[0]
   return ' '.join([x[0:1].upper() + x[1:] for x in inps.split(' ')])
 
