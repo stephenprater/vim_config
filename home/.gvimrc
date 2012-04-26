@@ -44,9 +44,9 @@ let g:gist_detect_filetype = 1
 
 if has("gui_macvim")
   let $SSH_ASKPASS = "/opt/local/libexec/ssh-askpass"
-  set guifont=Bitstream\ Vera\ Sans\ Mono:h12
+  set guifont=Menlo:h11
   colorscheme herald
-  set guioptions='ace'
+  set guioptions='ac'
   set noballooneval
   set macmeta
   set mmta

@@ -6,53 +6,62 @@ def dasherize(inp):
   return inps
 
 def single_item(inp):
-  inps = re.sub(r'([,\s])','\n',inp.upper())
-  inps = re.sub(r'-',r'hhh',inps)
-  inps = re.compile(r'(.+?)','M').sub(r'pn=\1&qty_\1=1&',inps)
-  inps = re.sub(r'\n','')
-  return os 
+  inps = re.split(r'[,\s\n]',inp.upper())
+  inps = [re.sub(r'-',r'hhh',x) for x in inps]
+  inps = ["pn=%s&qty_%s=1" % (x,x) for x in inps]
+  output = "&".join(inps)
+  return output 
 
 endglobal
 
 snippet collection "AGR Collection" b
-  <!-- Category Description for $1 -->
-  <style>#breadcrumbs{display:none;}</style>
-  <img class="hero_image" id="cat_hero" width="510" height="236" src="/images/art/${3:image}.jpg" alt="$1" />
-  <div id="cat_text" style="display:none">
-    <h2>${1:Collection Title}</h2>
-    <p>${2:Sub Head}</p>
-  </div>
-  <div id="collection_text">
-    <h3>${4:Put Copy Head Here}</h3>
-    <p>${5:Put Copy here}</p>
-  </div>
-  <div id="collection_controls" class="grad_up">
-    <h4><span>${6:Other Collection Headline}</span></h4>
-      <ul>
-        ${8:Use "related" snippet}
-      </ul>
-  <h5 id="tell_a_friend_collection"><a href="/pop_tell_friend.asp"><span>Tell a Friend</span></a></h5>
-  <h5 id="purchase_collection"><a href="/cart.asp?action=add_to_cart_item_page&${9: use 'purchase' snippet}><span>Purchase Entire Collection</span></a></h5>
-  </div>
+<!-- Category Description for $1 -->
+<style>#breadcrumbs{display:none;}</style>
+<img class="hero_image" id="cat_hero" width="510" height="236" src="/images/art/${3:image}.jpg" alt="$1" />
+<div id="cat_text" style="display:none">
+  <h2>${1:Collection Title}</h2>
+  <p>${2:Sub Head}</p>
+</div>
+<div id="collection_text">
+  <h3>${4:Put Copy Head Here}</h3>
+  <p>${5:Put Copy here}</p>
+</div>
+<div id="collection_controls" class="grad_up">
+  <h4><span>${6:Other Collection Headline}</span></h4>
+    <ul>
+      ${8:Use "related" snippet}
+    </ul>
+<h5 id="tell_a_friend_collection"><a href="/pop_tell_friend.asp"><span>Tell a Friend</span></a></h5>
+<h5 id="purchase_collection"><a href="purchase"><span>Purchase Entire Collection</span></a></h5>
+</div>
 
-  <!-- Short Description for $1 -->
-  <div class="other_collection">
+<!-- Short Description for $1 -->
+<div class="other_collection">
   <a href="`!p snip.rv = dasherize(t[1])`/c/${7:category_number}">
-    <img class="collection_image" src="/images/art/$3_vert.jpg" width="133" height="180" alt="$1" />
+    <img class="collection_image" src="/images/art/$3-vert.jpg" width="133" height="180" alt="$1" />
     <h5>$1</h5>
     <p class="hero_copy">
          $2
     </p>
   </a>
-  </div>
-  $0
+</div>
+$0
+endsnippet
+
+snippet home "RFM Homepage Collection" b
+    <a href="http://www.russellsformen.com/`!p snip.rv = dasherize(t[1])`/c/${3:cat_nbr}/sb/2">
+      <img class="hero_image" width="510" height="${5:236}" src="/images/art/${4:image}.jpg" alt="$1" />
+    </a>
+    <div id="hero_title" style="display:none">
+    <h2>${1:Collection Title}</h2>
+    <p>${2:Sub Head}</p>
 endsnippet
 
 snippet related "Related Collection" b
-<li><a href="${1:Link Url}">${2:Collection Name}</a></li>
+<li><a href="http://www.russellsformen.com/`!p snip.rv = dasherize(t[1])`/c/${2:cat_nbr}">${1:Collection Name}</a></li>
 ${3:related}
 endsnippet
 
 snippet purchase "Purchase String" i
-  /cart.asp?action=add_to_cart_item_page&`!p snip.rv = single_item(snip.v.text)`
+/cart.asp?action=add_to_cart_item_page&`!p snip.rv = single_item(snip.v.text)`
 endsnippet

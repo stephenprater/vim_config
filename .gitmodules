@@ -46,9 +46,9 @@
 [submodule "home/.vim/bundle/endwise"]
 	path = home/.vim/bundle/endwise
 	url = http://github.com/tpope/vim-endwise.git
-[submodule "home/.vim/bundle/conque"]
-	path = home/.vim/bundle/conque
-	url = git://github.com/vim-scripts/Conque-Shell.git
+[submodule "home/.vim/bundle/conque_term"]
+	path = home/.vim/bundle/conque_term
+	url = git://github.com/rygwdn/vim-conque
 [submodule "home/.vim/bundle/commandT"]
 	path = home/.vim/bundle/commandT
 	url = http://github.com/wincent/Command-T.git
