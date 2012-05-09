@@ -2,10 +2,6 @@
 let g:easytags_autohighlight = 0
 let g:easytags_updatetime_autodisable = 1
 
-"tag list
-let g:TList_Use_Right_Window=1
-let g:TList_WinWidth=80
-
 "yankring you bastard
 let g:yankring_zap_keys = 'f F t T / ?'
 
@@ -14,13 +10,14 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-
 "load pathogen, the damage from the plugins should be contained
 call pathogen#infect()
 
 " REALLY DON"T DO THAT.
 let g:easytags_autohighlight = 0
 let g:easytags_updatetime_autodisable = 1
+
+let g:ConqueTerm_Color = 1
 
 let g:miniBufExplCheckDupeBufs=0
 
@@ -91,13 +88,40 @@ function! RubySyntaxTweak()
   hi link rubyAssignment rubyOperator
   hi link rubyInterpolationDelimiter Delimiter
   hi link rubyKernelMethod Keyword 
+endfunction
 
+function! SetSassMake()
+  if exists("current_compiler")
+    finish
+  endif
+  let current_compiler = "sass_css"
+
+  if exists(":CompilerSet") != 2
+    command -nargs=* CompilerSet setlocal <args>
+  endif
+
+  let s:cpo_save = &cpo
+  set cpo&vim
+
+  setlocal makeprg=sass\ -f\ --trace\ $*\ %\ %<.css
+  setlocal efm=%f:%l:%m\ (Sass::SyntaxError),%-G%.%#
+
+  "WARNING on line 14 of menu_hover.sass:
+  "This selector doesnt have any properties and will not be rendered.
+  setlocal efm+=%E%>%tARNING\ on\ line\ %l\ of\ %f:,%Z%m
+
+  let &cpo = s:cpo_save
+  unlet s:cpo_save 
 endfunction
 
 au Filetype ruby call RubySyntaxTweak()
+au Filetype sass call SetSassMake()
 
 au InsertEnter * if !exists('w:last_fdm') | let w:last_fdm = &foldmethod | setlocal foldmethod=manual | endif
 au InsertLeave * if exists('w:last_fdm') | let &l:foldmethod = w:last_fdm | unlet w:last_fdm | endif
+
+au BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
+au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
 
 noremap ]- <C-W>-
 noremap ]= <C-W>+
@@ -156,8 +180,6 @@ set ignorecase
 set smartcase
 set directory=~/.vim/swap,.
 
-let g:Tlist_Use_Right_Window=1
-
 let mapleader = ","
 
 "set up minibufexplorer
@@ -177,6 +199,7 @@ let g:ConqueTerm_ReadUnfocused=1
 
 "invisibles
 map ,l :set list!<CR>
+map ,tl :TagbarOpen<CR>
 set listchars=tab:\|\ ,eol:¬
 
 set list
@@ -199,20 +222,16 @@ map ,yr :YRShow<CR>
 map <silent> ,cn :cn<CR>
 map <silent> ,cp :cp<CR>
 
+" for close windows
+nmap <C-W>! <Plug>Kwbd
+map ,yr :YRShow<CR>
+map <S-Space> :CommandT<CR>
 
+map ,sc :silent SynCheck %<CR>
 
 function! s:SudoWrite()
   w !sudo tee % > /dev/null
 endfunction
-
-command! NoReallyWrite call <SID>SudoWrite() 
-
-  " for close windows
-nmap <C-W>! <Plug>Kwbd
-
-map ,tl :Tlist<CR>
-map ,yr :YRShow<CR>
-map ,t  :CommandT<CR>
 
 function! s:RunShellCommand(cmdline)
   botright lwindow 
@@ -220,6 +239,8 @@ function! s:RunShellCommand(cmdline)
   lopen
   1
 endfunction
+
+command! NoReallyWrite call <SID>SudoWrite() 
 
 " Append modeline after last line in buffer.
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
@@ -252,7 +273,6 @@ function! PryWord(...)
 endfunction
 
 command! -complete=file -nargs=+ SynCheck call s:RunShellCommand('/opt/local/bin/ruby -w '.<q-args> )
-map ,sc :silent SynCheck %<CR>
 
 " weird name for this variable
 let g:ruby_debugger_progname = '/Applications/MacVim.app/Contents/MacOS/Vim'
