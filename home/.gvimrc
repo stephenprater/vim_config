@@ -1,3 +1,87 @@
+set nocompatible
+filetype off
+
+let g:buffergator_supress_keymaps = 1
+let g:buffergator_autoexpand_on_split = 0
+let g:buffergator_autodismiss_on_select = 0
+let g:buffergator_autoupdate = 1
+let g:buffergator_viewport_split_policy = "b"
+let g:buffergator_split_size = 15
+
+" use the number keys for easymotion
+let g:EasyMotion_keys = '012345689'
+
+
+let g:gundo_right = 1
+let g:gundo_map_move_newer
+
+let g:ctrlp_extensions = ['buffertag','tag']
+let g:ctrlp_prompt_mappings = {
+   \ 'ToggleType(1)'  : ['<S-Space>', '<c-up>'],
+   \ 'ToggleType(-1)' : ['<D-S-Space>', '<c-down>']
+   \ }
+
+set rtp+=~/.vim/vundle/vundle
+call vundle#rc('$HOME/.vim/vundle')
+
+Bundle 'gmarick/vundle'
+Bundle 'mileszs/ack.vim'
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neocomplcache-snippets-complete'
+Bundle 'vim-scripts/AnsiEsc.vim'
+Bundle 'vim-scripts/AutoClose'
+Bundle 'markabe/bufexplorer'
+Bundle 'vim-scripts/camelcasemotion'
+Bundle 'kien/ctrlp.vim'
+Bundle 'vim-scripts/easytags.vim'
+Bundle 'vim-scripts/FuzzyFinder'
+Bundle 'mattn/webapi-vim'
+Bundle 'mattn/gist-vim'
+Bundle 'vim-scripts/mru.vim'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
+Bundle 'csexton/rvm.vim'
+Bundle 'vim-scripts/scratch.vim'
+Bundle 'ervandew/supertab'
+Bundle 'scrooloose/syntastic'
+Bundle 'godlygeek/tabular'
+Bundle 'majutsushi/tagbar'
+Bundle 'vim-scripts/TailMinusF'
+Bundle 'kikijump/tslime.vim'
+Bundle 'vim-scripts/UltiSnips'
+Bundle 'cespare/vim-bclose'
+Bundle 'duff/vim-bufonly'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'rygwdn/vim-conque'
+Bundle 'tpope/vim-cucumber'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-haml'
+Bundle 'slack/vim-l9'
+Bundle 'tpope/vim-pathogen'
+Bundle 'tpope/vim-ragtag'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-rake'
+Bundle 'tpope/vim-repeat'
+Bundle 'stephenprater/vim-ruby-debugger'
+Bundle 'xolox/vim-shell'
+Bundle 'bbommarito/vim-slim'
+Bundle 'tpope/vim-surround'
+Bundle 'vim-scripts/YankRing.vim'
+Bundle 'sjl/badwolf'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'stephenprater/vim-buffergator'
+Bundle 'sessionman.vim'
+Bundle 'EasyMotion'
+Bundle 'tlib'
+Bundle 'Gundo'
+
+call pathogen#infect()
+
+filetype plugin indent on
+
+let g:neocomplcache_enable_at_startup = 1
+
 "fix fucking easytags
 let g:easytags_autohighlight = 0
 let g:easytags_updatetime_autodisable = 1
@@ -10,9 +94,6 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-"load pathogen, the damage from the plugins should be contained
-call pathogen#infect()
-
 " REALLY DON"T DO THAT.
 let g:easytags_autohighlight = 0
 let g:easytags_updatetime_autodisable = 1
@@ -21,27 +102,31 @@ let g:ConqueTerm_Color = 1
 
 let g:miniBufExplCheckDupeBufs=0
 
+set syntax=on
 set ttimeoutlen=100 timeoutlen=5000
-set nocompatible
 set background=dark
 set ttymouse=xterm2
 let ruby_operators = 1
 
-syntax on
-filetype plugin indent on
 set wildmenu
+set encoding=utf-8
+
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_cache_enabled = 1
 
 set t_Co=256
 
 let g:ruby_debugger_debug_mode = 1
 let g:github_user = "stephenprater"
-let g:github_token = "35350330e6d48647aaa6444e2fd62c45"
 let g:gist_open_browser_after_post = 1
 let g:gist_detect_filetype = 1
 
+let g:ruby_debugger_progname = '/Applications/MacVim.app/Contents/MacOS/Vim'
+
 if has("gui_macvim")
   let $SSH_ASKPASS = "/opt/local/libexec/ssh-askpass"
-  set guifont=Menlo:h11
+  set guifont=Consolas\ for\ Powerline:h12
+  macmenu &Edit.Find.Find\.\.\. key=<nop>
   colorscheme herald
   set guioptions='ac'
   set noballooneval
@@ -135,10 +220,12 @@ noremap ]l <C-W>l
 noremap ]_ :split<CR>
 noremap ]\| :vsplit<CR>
 
-noremap <leader><leader>f :FufCoverageFile<CR>
-noremap <leader><leader>l :FufLine<CR>
-noremap <leader><leader>t :FufTagWithCursorWord<CR>
-noremap <leader><leader>b :FufBuffer<CR>
+noremap <D-F> :FufCoverageFile<CR>
+noremap <D-F>l :FufLine<CR>
+noremap <D-F>t :FufTagWithCursorWord<CR>
+noremap <D-F>b :FufBuffer<CR>
+noremap <D-F>h :FufHelpWithCursorWord<CR>
+noremap <silent> <Esc><Esc> :noh<CR>
 
 if has("gui_macvim")
   noremap <D-]> :bn<CR>
@@ -167,20 +254,74 @@ set softtabstop=2
 set shiftwidth=2
 set smarttab
 
-set backspace=2
+" Settings {{{
+set autoread
+set backspace=indent,eol,start
+set binary
+set cinoptions=:0,(s,u0,U1,g0,t0
+set completeopt=menuone,preview
+set hidden
+set history=1000
+set incsearch
+set laststatus=2
+set list
 set cmdheight=2
+
+set listchars=tab:\|\ ,eol:¬,extends:❯,precedes:❮
+set showbreak=↪
+
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
+" _ backups {{{
+set undodir=~/.vim/tmp/undo// " undo files
+set backupdir=~/.vim/tmp/backup// " backups
+set directory=~/.vim/tmp/swap// " swap files
+set backup
+set noswapfile
+" _ }}}
+
+set modelines=0
+set noeol
+set number
 set ruler
-set history=100
-set undolevels=100
+set shell=/usr/local/bin/zsh
+set showcmd
+
+set matchtime=2
+
+set completeopt=longest,menuone,preview
+
+" White characters {{{
+set autoindent
+set tabstop=2
+set textwidth=80
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set formatoptions=qrn1
+" }}}
+
+set visualbell
+
+set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,.DS_Store,*.aux,*.out,*.toc
+set wildmenu
+
+ 
+set ruler
 set autoindent
 set hidden
 
+" search
+set hlsearch
 set incsearch
 set ignorecase 
 set smartcase
 set directory=~/.vim/swap,.
 
 let mapleader = ","
+let maplocalleader = "\\"
 
 "set up minibufexplorer
 let g:miniBufExplMapWindowNavVim = 1 
@@ -191,18 +332,13 @@ let g:miniBufExplorerMoreThanOne=0
 
 map ,<TAB> :TMiniBufExplorer<CR>
 let g:yankring_min_element_length=2
-let mapleader = ","
 
 let g:ConqueTerm_Color=1
 let g:ConqueTerm_TERM='xterm-256color'
 let g:ConqueTerm_ReadUnfocused=1
 
 "invisibles
-map ,l :set list!<CR>
-map ,tl :TagbarOpen<CR>
-set listchars=tab:\|\ ,eol:¬
-
-set list
+map <F8> :TagbarToggle<CR>
 
 command! -nargs=? -complete=tag Pry call PryWord(<f-args>)
 nmap ,,tm :SendToTmux<CR>
@@ -225,10 +361,28 @@ map <silent> ,cp :cp<CR>
 " for close windows
 nmap <C-W>! <Plug>Kwbd
 map ,yr :YRShow<CR>
-map <S-Space> :CommandT<CR>
+map <S-Space> :CtrlP<CR>
 
 map ,sc :silent SynCheck %<CR>
 
+nnoremap ,s :call SnippetList()<cr>
+inoremap <c-x><c-s> <esc>:call SnippetList()<cr>
+
+noremap ,nt :NERDTreeToggle<CR>
+
+noremap ,h :GundoToggle<CR>
+nmap ,mru :MRU<CR>
+
+ab edn end
+nmap <Leader>sp :call HighlightGroup()<cr>
+
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+
+command! NoReallyWrite call <SID>SudoWrite() 
+command! -complete=file -nargs=+ SynCheck call s:RunShellCommand('/opt/local/bin/ruby -w '.<q-args> )
+
+" Functions {{{
 function! s:SudoWrite()
   w !sudo tee % > /dev/null
 endfunction
@@ -239,8 +393,6 @@ function! s:RunShellCommand(cmdline)
   lopen
   1
 endfunction
-
-command! NoReallyWrite call <SID>SudoWrite() 
 
 " Append modeline after last line in buffer.
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
@@ -272,23 +424,63 @@ function! PryWord(...)
   call Send_to_Tmux(comm)
 endfunction
 
-command! -complete=file -nargs=+ SynCheck call s:RunShellCommand('/opt/local/bin/ruby -w '.<q-args> )
+"shameless stolen from buffergator
+function! s:_find_buffers_with_var(varname, expr)
+    let l:results = []
+    for l:bni in range(1, bufnr("$"))
+        if !bufexists(l:bni)
+            continue
+        endif
+        let l:bvar = getbufvar(l:bni, "")
+        if empty(a:varname)
+            call add(l:results, l:bni)
+        elseif has_key(l:bvar, a:varname)
+            call add(l:results, l:bni)
+        elseif has_key(l:bvar, a:varname) && l:bvar[a:varname] =~ a:expr
+            call add(l:results, l:bni)
+        endif
+    endfor
+    return l:results
+endfunction
 
-" weird name for this variable
-let g:ruby_debugger_progname = '/Applications/MacVim.app/Contents/MacOS/Vim'
+" Returns the active NERDTreeBuffer
+function! s:_active_nerd_tree_buffer()
+    let nt_buffers = s:_find_buffers_with_var('NERDTreeRoot','')
+    for nt_buffer in nt_buffers
+        if bufwinnr(nt_buffer) > 0
+          return bufwinnr(nt_buffer)
+        endif
+    endfor
+endfunction
 
 
-" open nerd tree, and jump to the editing window
-if &diff
-  " don't start NERDTree
-else  
-  au VimEnter * set laststatus=2
-  au VimEnter * NERDTree
-  au VimEnter * wincmd p
-endif
+function! SetupWorkspace()
+  let tbuf = bufnr('%')
+  execute 'NERDTreeToggle'
+  execute 'NERDTreeFocus'
+  
+  execute 'BuffergatorOpen'
+  execute 'TagbarOpen'
+  execute bufwinnr(tbuf) . 'wincmd w'
+endfunction
 
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+" Need a command to list the snippets
+command! UltiList :call UltiSnips_ListSnippets()
+
+func! SnippetList()
+    let response = matchstr(tlib#input#CommandSelect('UltiList'), '^\S\+\s(\zs.*\ze)')
+    if !empty(response)
+        " find the part of the line that already has been typed
+        echom expand("<cword>")
+        let part = matchstr(response,expand("<cword>"))
+        if !empty(part)
+            let response = strpart(response,len(part))
+        endif
+        exec ':norm a'.response
+        :norm l
+        :call UltiSnips_ExpandSnippet()
+    endif
+endfunc
 
 function! CreatePurchaseString()
   '<,'>s/,/\r/g
@@ -297,11 +489,16 @@ function! CreatePurchaseString()
   '<,'>s/\n//g
   s/&$/g
 endfunction
-
-nmap ,mru :MRU<CR>
+"}}}1
 
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%{ruby_debugger#statusline()}%-14.(%l,%c%V%)\ %P
 
-ab edn end
-nmap <Leader>sp :call HighlightGroup()<cr>
-
+" open nerd tree, and jump to the editing window
+if &diff
+  " don't start NERDTree
+else
+  augroup Mine
+    au!
+    au VimEnter * call SetupWorkspace()
+  augroup END
+endif
