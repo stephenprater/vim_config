@@ -11,7 +11,6 @@ let g:buffergator_split_size = 15
 " use the number keys for easymotion
 let g:EasyMotion_keys = '012345689'
 
-
 let g:gundo_right = 1
 let g:gundo_map_move_newer
 
@@ -71,6 +70,7 @@ Bundle 'vim-scripts/YankRing.vim'
 Bundle 'sjl/badwolf'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'stephenprater/vim-buffergator'
+Bundle 'harleypig/ShowMarks'
 Bundle 'sessionman.vim'
 Bundle 'EasyMotion'
 Bundle 'tlib'
@@ -455,6 +455,7 @@ endfunction
 
 
 function! SetupWorkspace()
+  let g:buffergator_autoupdate = 0
   let tbuf = bufnr('%')
   execute 'NERDTreeToggle'
   execute 'NERDTreeFocus'
@@ -462,6 +463,7 @@ function! SetupWorkspace()
   execute 'BuffergatorOpen'
   execute 'TagbarOpen'
   execute bufwinnr(tbuf) . 'wincmd w'
+  let g:buffergator_autoupdate = 1 
 endfunction
 
 " Need a command to list the snippets
