@@ -12,13 +12,14 @@ let g:buffergator_split_size = 15
 let g:EasyMotion_keys = '012345689'
 
 let g:gundo_right = 1
-let g:gundo_map_move_newer
 
 let g:ctrlp_extensions = ['buffertag','tag']
 let g:ctrlp_prompt_mappings = {
    \ 'ToggleType(1)'  : ['<S-Space>', '<c-up>'],
    \ 'ToggleType(-1)' : ['<D-S-Space>', '<c-down>']
    \ }
+
+let g:showmarks_ignore_type = "hmpqr"
 
 set rtp+=~/.vim/vundle/vundle
 call vundle#rc('$HOME/.vim/vundle')
