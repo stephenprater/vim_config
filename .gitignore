@@ -10,5 +10,6 @@ home/.vim/config/private/*
 home/.vim/view/*
 home/.vim/swap/*
 home/.vim/vundle/*
+home/.vim/bundle/*
 
 /home/.vim/tmp

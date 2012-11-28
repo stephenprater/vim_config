@@ -5,8 +5,19 @@ let g:buffergator_supress_keymaps = 1
 let g:buffergator_autoexpand_on_split = 0
 let g:buffergator_autodismiss_on_select = 0
 let g:buffergator_autoupdate = 1
+let g:buffergator_show_buffers_from_other_tabs = 0
 let g:buffergator_viewport_split_policy = "b"
 let g:buffergator_split_size = 15
+
+let g:syntastic_ruby_exec = '/Users/stephenprater/.rbenv/versions/1.9.3-p194/bin/ruby'
+
+let g:async = { 
+      \ 'vim' : '/usr/local/Cellar/macvim/7.3-64/MacVim.app/Contents/MacOS/Vim',
+      \ 'line_prefix' : ">",
+      \ 'async_history_file' : expand('~/.vim-addon-async-history'),
+      \ 'async_history_length' : 1000,
+      \ }
+let g:async_implementation = "c_executable"
 
 " use the number keys for easymotion
 let g:EasyMotion_keys = '012345689'
@@ -21,6 +32,11 @@ let g:ctrlp_prompt_mappings = {
 
 let g:showmarks_ignore_type = "hmpqr"
 
+let g:neocomplcache_use_vimproc = 1
+let g:neocomplcache_enable_cursor_hold_i = 1
+let g:neocomplcache_cursor_hold_i_time = 500
+""let g:neocomplcache_enable_insert_char_pre = 1
+
 set rtp+=~/.vim/vundle/vundle
 call vundle#rc('$HOME/.vim/vundle')
 
@@ -28,7 +44,6 @@ Bundle 'gmarick/vundle'
 Bundle 'mileszs/ack.vim'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neocomplcache-snippets-complete'
-Bundle 'vim-scripts/AnsiEsc.vim'
 Bundle 'vim-scripts/AutoClose'
 Bundle 'markabe/bufexplorer'
 Bundle 'vim-scripts/camelcasemotion'
@@ -40,25 +55,21 @@ Bundle 'mattn/gist-vim'
 Bundle 'vim-scripts/mru.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
-Bundle 'csexton/rvm.vim'
 Bundle 'vim-scripts/scratch.vim'
 Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
 Bundle 'godlygeek/tabular'
 Bundle 'majutsushi/tagbar'
-Bundle 'vim-scripts/TailMinusF'
 Bundle 'kikijump/tslime.vim'
 Bundle 'vim-scripts/UltiSnips'
 Bundle 'cespare/vim-bclose'
 Bundle 'duff/vim-bufonly'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'rygwdn/vim-conque'
 Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-haml'
 Bundle 'slack/vim-l9'
-Bundle 'tpope/vim-pathogen'
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
@@ -71,11 +82,14 @@ Bundle 'vim-scripts/YankRing.vim'
 Bundle 'sjl/badwolf'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'stephenprater/vim-buffergator'
-Bundle 'harleypig/ShowMarks'
-Bundle 'sessionman.vim'
 Bundle 'EasyMotion'
 Bundle 'tlib'
 Bundle 'Gundo'
+Bundle 'applescript.vim'
+Bundle 'mattn/zencoding-vim'
+Bundle 'prettyprint.vim'
+Bundle 'Shougo/vimproc'
+ 
 
 call pathogen#infect()
 
@@ -97,6 +111,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " REALLY DON"T DO THAT.
 let g:easytags_autohighlight = 0
+let g:easytags_auto_highlight = 0
 let g:easytags_updatetime_autodisable = 1
 
 let g:ConqueTerm_Color = 1
@@ -124,10 +139,11 @@ let g:gist_detect_filetype = 1
 
 let g:ruby_debugger_progname = '/Applications/MacVim.app/Contents/MacOS/Vim'
 
-if has("gui_macvim")
+if has("gui_macvim") && has("gui_running")
   let $SSH_ASKPASS = "/opt/local/libexec/ssh-askpass"
   set guifont=Consolas\ for\ Powerline:h12
   macmenu &Edit.Find.Find\.\.\. key=<nop>
+  macmenu &File.Print key=<nop>
   colorscheme herald
   set guioptions='ac'
   set noballooneval
@@ -159,9 +175,41 @@ function! RubySyntaxTweak()
   syn match rubyTernary "\s[?:]\s"
   syn match rubyAssignment "=\(>\)\@!"
   "syn match rubyLocalVariableOrMethod "\<[_[:lower:]][_[:alnum:]]*[?!=]\=" contains=NONE display transparent
-  syn match rubyLocalMethodCall "\.[_[:lower:]][_[:alnum:]]*[?!=]\="hs=s+1 contains=NONE display
-  syn match rubyObjectMethodCall "\.\(allocate\|new\|superclass\|freeze\|to_s\|included_modules\|include?\|name\|ancestors\|instance_methods\|public_instance_methods\|protected_instance_methods\|private_instance_methods\|constants\|const_get\|const_set\|const_defined?\|const_missing\|class_variables\|remove_class_variable\|class_variable_get\|class_variable_set\|class_variable_defined?\|module_exec\|class_exec\|module_eval\|class_eval\|method_defined?\|public_method_defined?\|private_method_defined?\|protected_method_defined?\|public_class_method\|private_class_method\|autoload\|autoload?\|instance_method\|public_instance_method\|nil?\|eql?\|hash\|class\|singleton_class\|clone\|dup\|initialize_dup\|initialize_clone\|taint\|tainted?\|untaint\|untrust\|untrusted?\|trust\|frozen?\|inspect\|methods\|singleton_methods\|protected_methods\|private_methods\|public_methods\|instance_variables\|instance_variable_get\|instance_variable_set\|instance_variable_defined?\|instance_of?\|kind_of?\|is_a?\|tap\|send\|public_send\|respond_to?\|respond_to_missing?\|extend\|display\|method\|public_method\|define_singleton_method\|object_id\|to_enum\|enum_for\|equal?\|instance_eval\|instance_exec\|\(__[[:alnum:]]*__\)\)*\_[.[:space:](\[]"me=e-1
-  syn keyword rubyKernelMethod switch on aif
+  syn match rubyDot "\." display
+  syn match rubyLocalMethodCall "\.[_[:lower:]][_[:alnum:]]*[?!=]\=" contains=rubyDot
+
+  "syn match rubyConstant "\%(\%([.@$]\@<!\.\)\@<!\<\|::\)\_s*\zs\u\w*\%(\>\|::\)\@=\%(\s*(\)\@!"
+  "why this complicated damn thing when this next one works better?
+  syn clear rubyConstant
+  syn clear rubyClassDeclaration
+  syn match rubyConstant "\<\u\w*"
+  syn match rubyClassOperator "<<\? " containedin=rubyClassDeclaration contained
+  syn match rubyClassOperator "::" containedin=rubyClassDeclaration contained
+  syn match rubyClassDeclaration /\<class\s([^;#])\+/  contained contains=rubyConstant,rubyClassOperator,rubyPseudoVariable,rubyClass
+
+
+  let l:object_methods = ['include?', 'name', 'ancestors', 'instance_methods',
+        \ 'public_instance_methods', 'protected_instance_methods', 'private_instance_methods',
+        \ 'constants', 'const_get', 'const_set', 'const_defined?', 'const_missing', 'class_variables',
+        \ 'remove_class_variable', 'class_variable_get', 'class_variable_set', 'class_variable_defined?',
+        \ 'module_exec', 'class_exec', 'module_eval', 'class_eval', 'method_defined?',
+        \ 'public_method_defined?', 'private_method_defined?', 'protected_method_defined?',
+        \ 'public_class_method', 'private_class_method', 'autoload', 'autoload?', 'instance_method',
+        \ 'public_instance_method', 'nil?', 'eql?', 'hash', 'class', 'singleton_class', 'clone', 'dup',
+        \ 'initialize_dup', 'initialize_clone', 'taint', 'tainted?', 'untaint', 'untrust',
+        \ 'untrusted?', 'trust', 'frozen?', 'inspect', 'methods', 'singleton_methods',
+        \ 'protected_methods', 'private_methods', 'public_methods', 'instance_variables',
+        \ 'instance_variable_get', 'instance_variable_set', 'instance_variable_defined?', 'instance_of?',
+        \ 'kind_of?', 'is_a?', 'tap', 'send', 'public_send', 'respond_to?', 'respond_to_missing?',
+        \ 'extend', 'display', 'method', 'public_method', 'define_singleton_method', 'object_id',
+        \ 'to_enum', 'enum_for', 'equal?', 'instance_eval', 'instance_exec']
+
+  for l:object_method in l:object_methods 
+    let l:pattern = "\\." . l:object_method 
+    exec "syn match rubyObjectMethodCall \"" . l:pattern . "\" contains=rubyDot"
+  endfor
+  
+  
   syn match rubyExpressionDelimiter "[()]"
   syn region rubyExpression matchgroup=rubyExpressionDelimiter start="[\s(]("ms=s+1 skip="\\\\\|\\)" end=")" transparent 
   syn region rubyBlockParameterList matchgroup=rubyBrackets start="\%(\%(\<do\>\|{\)\s*\)\@<=|" end="|" oneline display contains=rubyBlockParameter, rubyOperator
@@ -174,7 +222,19 @@ function! RubySyntaxTweak()
   hi link rubyAssignment rubyOperator
   hi link rubyInterpolationDelimiter Delimiter
   hi link rubyKernelMethod Keyword 
+  hi link rubyClassOperator rubyOperator
+  hi link rubyDot rubyBrackets
 endfunction
+
+function! UUID()
+  ruby << RUBY
+    require 'securerandom'
+    VIM.command("let l:r = '#{SecureRandom.uuid}'")
+RUBY
+  return l:r
+endfunction
+
+
 
 function! SetSassMake()
   if exists("current_compiler")
@@ -207,7 +267,7 @@ au InsertEnter * if !exists('w:last_fdm') | let w:last_fdm = &foldmethod | setlo
 au InsertLeave * if exists('w:last_fdm') | let &l:foldmethod = w:last_fdm | unlet w:last_fdm | endif
 
 au BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
-au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
+"au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
 
 noremap ]- <C-W>-
 noremap ]= <C-W>+
@@ -221,12 +281,13 @@ noremap ]l <C-W>l
 noremap ]_ :split<CR>
 noremap ]\| :vsplit<CR>
 
-noremap <D-F> :FufCoverageFile<CR>
 noremap <D-F>l :FufLine<CR>
 noremap <D-F>t :FufTagWithCursorWord<CR>
 noremap <D-F>b :FufBuffer<CR>
 noremap <D-F>h :FufHelpWithCursorWord<CR>
 noremap <silent> <Esc><Esc> :noh<CR>
+
+noremap <Leader>qf :bo copen<CR>
 
 if has("gui_macvim")
   noremap <D-]> :bn<CR>
@@ -354,7 +415,6 @@ command! -nargs=1 -range SuperRetab <line1>,<line2>s/\v%(^ *)@<= {<args>}/\t/g
 
 map ,v :sp ~/.vimrc<CR><C-W>_
 map <silent> ,V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
-map ,q <Plug>Kwbd
 map ,yr :YRShow<CR>
 map <silent> ,cn :cn<CR>
 map <silent> ,cp :cp<CR>
@@ -465,6 +525,45 @@ function! SetupWorkspace()
   execute 'TagbarOpen'
   execute bufwinnr(tbuf) . 'wincmd w'
   let g:buffergator_autoupdate = 1 
+endfunction
+
+au FileType *.html call SetUpTidy()
+au FileType *.scss setlocal foldmarker=\{,\} | setlocal foldmethod=marker<CR>
+
+
+function! s:RangeToTmux(line1, line2)
+  let l:old_r = @r
+  execute a:line1 . ',' . a:line2 . 'y r'
+  call Send_to_Tmux(@r)
+  let @r = l:old_r
+endfunction
+
+command! -range SendToTmux :call <SID>RangeToTmux(<line1>,<line2>)<CR>
+command! SetupTmux :call Set_Tmux_Vars()<CR>
+
+function! s:SetUpWatchCommand()
+  let l:sass_buff = bufnr('%')
+endfunction
+
+function! s:get_visual_selection()
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][: col2 - 2]
+  let lines[0] = lines[0][col1 - 1:]
+  return join(lines, "\n")
+endfunction
+
+function! SetUpTidy()
+  command! -buffer -range=% -bang Tidy :call CallTidy(<line1>, <line2>, '<bang>')
+endfunction
+
+function! CallTidy(line1, line2, errors)
+  if !a:errors
+    execute a:line1 . "," . a:line2 . "!tidy -config " . $HOME . "/.vim/config/tidy.conf -im"
+  else
+    execute a:line1 . "," . a:line2 . "!tidy -config " . $HOME . "/.vim/config/tidy.conf -im --show-errors 0 -q"
+  endif
 endfunction
 
 " Need a command to list the snippets
