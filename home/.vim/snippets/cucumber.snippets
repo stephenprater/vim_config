@@ -1,4 +1,6 @@
 global !p
+import re
+
 def titleize(inp):
   inps = re.sub(r'[_-]',' ',inp).split('.')[0]
   return ' '.join([x[0:1].upper() + x[1:] for x in inps.split(' ')])
@@ -11,6 +13,32 @@ Feature: ${1:`!p snip.rv = titleize(snip.fn)`}
   As a ${3:role}
   I want ${4:feature}
   $0
+endsnippet
+
+snippet background "Cucumber Background" b
+Background:
+  Given ${1:context}
+  $0
+endsnippet
+
+snippet giv "Cucumber Given"
+Given ${1:context}
+$0
+endsnippet
+
+snippet and "Cucumber And"
+And ${1:context}
+$0
+endsnippet
+
+snippet whe "Cucumber When"
+When ${1:event}
+$0
+endsnippet
+
+snippet the "Cucumber Then"
+Then ${1:outcome}
+$0
 endsnippet
 
 snippet scen "Cucumber Scenario" b

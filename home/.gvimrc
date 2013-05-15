@@ -1,6 +1,32 @@
 set nocompatible
 filetype off
 
+" do this shit first so it doens't run into stuff later
+if has("gui_macvim") && has("gui_running")
+  let $SSH_ASKPASS = "/usr/local/bin/ssh-askpass"
+
+  set guifont=Inconsolata-dz\ for\ Powerline:h11
+  macmenu &Edit.Find.Find\.\.\. key=<nop>
+  macmenu &File.Print key=<nop>
+  macmenu &File.New\ Tab key=<nop>
+  
+  colorscheme herald
+  set guioptions='ac'
+  set noballooneval
+  set macmeta
+  set mmta
+else
+  " have to load this one explicitly:b8
+  so $HOME/.vim/plugin/guicolorscheme.vim
+  GuiColorScheme praterhaus
+  hi rubyInstanceVariable ctermfg=63
+  hi rubyPredefinedVariable ctermfg=73
+  hi rubyBlockParameter ctermfg=135
+  hi link rubyClassVariable rubyInstanceVariable
+  "why is this backwards?
+  hi Comment ctermbg=0 ctermfg=58
+endif
+
 let g:buffergator_supress_keymaps = 1
 let g:buffergator_autoexpand_on_split = 0
 let g:buffergator_autodismiss_on_select = 0
@@ -9,7 +35,8 @@ let g:buffergator_show_buffers_from_other_tabs = 0
 let g:buffergator_viewport_split_policy = "b"
 let g:buffergator_split_size = 15
 
-let g:syntastic_ruby_exec = '/Users/stephenprater/.rbenv/versions/1.9.3-p194/bin/ruby'
+let g:syntastic_ruby_exec = '/usr/local/opt/rbenv/shims/ruby'
+let g:syntastic_php_exec = '/usr/local/bin/php' 
 
 let g:async = { 
       \ 'vim' : '/usr/local/Cellar/macvim/7.3-64/MacVim.app/Contents/MacOS/Vim',
@@ -26,9 +53,10 @@ let g:gundo_right = 1
 
 let g:ctrlp_extensions = ['buffertag','tag']
 let g:ctrlp_prompt_mappings = {
-   \ 'ToggleType(1)'  : ['<S-Space>', '<c-up>'],
-   \ 'ToggleType(-1)' : ['<D-S-Space>', '<c-down>']
+   \ 'ToggleType(1)'  : ['<D-t>', '<c-up>'],
+   \ 'ToggleType(-1)' : ['<D-T>', '<c-down>']
    \ }
+map <D-t> :CtrlP<CR>
 
 let g:showmarks_ignore_type = "hmpqr"
 
@@ -37,23 +65,25 @@ let g:neocomplcache_enable_cursor_hold_i = 1
 let g:neocomplcache_cursor_hold_i_time = 500
 ""let g:neocomplcache_enable_insert_char_pre = 1
 
+let g:tagbar_phpctags_bin='~/Code/phpctags/phpctags'
+
+let g:mark_multiple_trigger="<D-d>"
+
 set rtp+=~/.vim/vundle/vundle
 call vundle#rc('$HOME/.vim/vundle')
 
 Bundle 'gmarick/vundle'
 Bundle 'mileszs/ack.vim'
 Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neocomplcache-snippets-complete'
+Bundle 'Shougo/neosnippet'
 Bundle 'vim-scripts/AutoClose'
 Bundle 'markabe/bufexplorer'
-Bundle 'vim-scripts/camelcasemotion'
 Bundle 'kien/ctrlp.vim'
 Bundle 'vim-scripts/easytags.vim'
-Bundle 'vim-scripts/FuzzyFinder'
-Bundle 'mattn/webapi-vim'
+""Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
-Bundle 'vim-scripts/mru.vim'
-Bundle 'scrooloose/nerdcommenter'
+"Bundle 'vim-scripts/mru.vim'
+"Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'vim-scripts/scratch.vim'
 Bundle 'ervandew/supertab'
@@ -61,7 +91,9 @@ Bundle 'scrooloose/syntastic'
 Bundle 'godlygeek/tabular'
 Bundle 'majutsushi/tagbar'
 Bundle 'kikijump/tslime.vim'
-Bundle 'vim-scripts/UltiSnips'
+"Bundle 'vim-scripts/UltiSnips'
+Bundle 'terryma/vim-multiple-cursors'
+"Bundle 'JazzCore/neocomplcache-ultisnips'  
 Bundle 'cespare/vim-bclose'
 Bundle 'duff/vim-bufonly'
 Bundle 'kchmck/vim-coffee-script'
@@ -69,6 +101,7 @@ Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-markdown'
 Bundle 'slack/vim-l9'
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-rails'
@@ -76,7 +109,6 @@ Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-repeat'
 Bundle 'stephenprater/vim-ruby-debugger'
 Bundle 'xolox/vim-shell'
-Bundle 'bbommarito/vim-slim'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'sjl/badwolf'
@@ -89,9 +121,35 @@ Bundle 'applescript.vim'
 Bundle 'mattn/zencoding-vim'
 Bundle 'prettyprint.vim'
 Bundle 'Shougo/vimproc'
- 
+Bundle 'joonty/vdebug'
+Bundle 'leshill/vim-json'
+Bundle 'suan/vim-instant-markdown'
+Bundle 'spf13/PIV'
+Bundle 'techlivezheng/tagbar-phpctags'
+Bundle 'swap-parameters'
+Bundle 'kana/vim-textobj-user'
+Bundle 'nelstrom/vim-textobj-rubyblock'
 
-call pathogen#infect()
+runtime macros/matchit.vim
+ 
+" Plugin key-mappings.
+""imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+""smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+""xmap <C-k>     <Plug>(neosnippet_expand_target)
+""xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
+
+" SuperTab like snippets behavior.
+""imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"" \ "\<Plug>(neosnippet_expand_or_jump)"
+"" \: pumvisible() ? "\<C-n>" : "\<TAB>"
+""smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"" \ "\<Plug>(neosnippet_expand_or_jump)"
+"" \: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
 filetype plugin indent on
 
@@ -105,7 +163,7 @@ let g:easytags_updatetime_autodisable = 1
 let g:yankring_zap_keys = 'f F t T / ?'
 
 let g:UltiSnipsSnippetDirectories = ["UltiSnips","snippets"]
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
@@ -139,27 +197,6 @@ let g:gist_detect_filetype = 1
 
 let g:ruby_debugger_progname = '/Applications/MacVim.app/Contents/MacOS/Vim'
 
-if has("gui_macvim") && has("gui_running")
-  let $SSH_ASKPASS = "/opt/local/libexec/ssh-askpass"
-  set guifont=Consolas\ for\ Powerline:h12
-  macmenu &Edit.Find.Find\.\.\. key=<nop>
-  macmenu &File.Print key=<nop>
-  colorscheme herald
-  set guioptions='ac'
-  set noballooneval
-  set macmeta
-  set mmta
-else
-  " have to load this one explicitly:b8
-  so $HOME/.vim/plugin/guicolorscheme.vim
-  GuiColorScheme praterhaus
-  hi rubyInstanceVariable ctermfg=63
-  hi rubyPredefinedVariable ctermfg=73
-  hi rubyBlockParameter ctermfg=135
-  hi link rubyClassVariable rubyInstanceVariable
-  "why is this backwards?
-  hi Comment ctermbg=0 ctermfg=58
-endif
 
 function! RedoSyntax()
   syntax clear
@@ -181,7 +218,6 @@ function! RubySyntaxTweak()
   "syn match rubyConstant "\%(\%([.@$]\@<!\.\)\@<!\<\|::\)\_s*\zs\u\w*\%(\>\|::\)\@=\%(\s*(\)\@!"
   "why this complicated damn thing when this next one works better?
   syn clear rubyConstant
-  syn clear rubyClassDeclaration
   syn match rubyConstant "\<\u\w*"
   syn match rubyClassOperator "<<\? " containedin=rubyClassDeclaration contained
   syn match rubyClassOperator "::" containedin=rubyClassDeclaration contained
@@ -234,8 +270,6 @@ RUBY
   return l:r
 endfunction
 
-
-
 function! SetSassMake()
   if exists("current_compiler")
     finish
@@ -262,6 +296,8 @@ endfunction
 
 au Filetype ruby call RubySyntaxTweak()
 au Filetype sass call SetSassMake()
+au Filetype php setlocal shiftwidth=4 tabstop=4 noet
+au Filetype json setlocal shiftwidth=8 tabstop=8 noet
 
 au InsertEnter * if !exists('w:last_fdm') | let w:last_fdm = &foldmethod | setlocal foldmethod=manual | endif
 au InsertLeave * if exists('w:last_fdm') | let &l:foldmethod = w:last_fdm | unlet w:last_fdm | endif
@@ -285,9 +321,16 @@ noremap <D-F>l :FufLine<CR>
 noremap <D-F>t :FufTagWithCursorWord<CR>
 noremap <D-F>b :FufBuffer<CR>
 noremap <D-F>h :FufHelpWithCursorWord<CR>
-noremap <silent> <Esc><Esc> :noh<CR>
 
 noremap <Leader>qf :bo copen<CR>
+
+vmap <D-d>d <Plug>(multiedit-add)
+nmap <D-d>d viw<D-d>b
+nmap <D-d>e <Plug>(multiedit-edit)i
+map  <D-d>r <Plug>(multiedit-reset)
+
+map <Esc><Esc> :noh<CR>
+
 
 if has("gui_macvim")
   noremap <D-]> :bn<CR>
@@ -402,11 +445,6 @@ let g:ConqueTerm_ReadUnfocused=1
 "invisibles
 map <F8> :TagbarToggle<CR>
 
-command! -nargs=? -complete=tag Pry call PryWord(<f-args>)
-nmap ,,tm :SendToTmux<CR>
-nmap ,,tmv :SetTmuxVars<CR>
-nmap ,,p  :Pry<CR>
-
 ",v brings up my .vimrc
 ",V reloads it -- making all changes active (have to save first)
 "
@@ -418,11 +456,12 @@ map <silent> ,V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloa
 map ,yr :YRShow<CR>
 map <silent> ,cn :cn<CR>
 map <silent> ,cp :cp<CR>
+nmap \f /do$<ESC>hi, focus: true<ESC>:noh<CR>
+nmap \F :s/, focus: true//<CR>:noh<CR>
 
 " for close windows
 nmap <C-W>! <Plug>Kwbd
 map ,yr :YRShow<CR>
-map <S-Space> :CtrlP<CR>
 
 map ,sc :silent SynCheck %<CR>
 
@@ -434,11 +473,16 @@ noremap ,nt :NERDTreeToggle<CR>
 noremap ,h :GundoToggle<CR>
 nmap ,mru :MRU<CR>
 
+noremap ,n :NumbersToggle<CR>
+
 ab edn end
+ab bpry binding.pry
 nmap <Leader>sp :call HighlightGroup()<cr>
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
+
+highlight Folded term=standout ctermfg=11 ctermbg=8 guifg=#70bdf1 guibg=#001336
 
 command! NoReallyWrite call <SID>SudoWrite() 
 command! -complete=file -nargs=+ SynCheck call s:RunShellCommand('/opt/local/bin/ruby -w '.<q-args> )
@@ -530,6 +574,10 @@ endfunction
 au FileType *.html call SetUpTidy()
 au FileType *.scss setlocal foldmarker=\{,\} | setlocal foldmethod=marker<CR>
 
+command! -nargs=? -complete=tag Pry call PryWord(<f-args>)
+nmap ,,tm :SendToTmux<CR>
+nmap ,,tmv :SetupTmux<CR>
+nmap ,,p  :Pry<CR>
 
 function! s:RangeToTmux(line1, line2)
   let l:old_r = @r
@@ -539,7 +587,14 @@ function! s:RangeToTmux(line1, line2)
 endfunction
 
 command! -range SendToTmux :call <SID>RangeToTmux(<line1>,<line2>)<CR>
-command! SetupTmux :call Set_Tmux_Vars()<CR>
+command! SetupTmux :call Tmux_Vars()<CR>
+command! Rspec :call Send_to_Tmux("rspec")<CR>
+command! Continue :call Send_to_Tmux('quit')<CR>
+command! Tmux :call Send_to_Tmux(<q-args> . "")
+
+noremap <silent> \r :Rspec<CR>
+noremap <silent> \Q :Continue<CR>
+
 
 function! s:SetUpWatchCommand()
   let l:sass_buff = bufnr('%')
